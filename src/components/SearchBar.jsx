@@ -2,7 +2,7 @@ import { Input } from "./Input";
 import { InputRange } from "./InputRange";
 import { Checkbox } from "./Checkbox";
 
-export function SearchBar({
+export function Searchbar({
   showStockedOnly,
   onStockedOnlyChange,
   searchItem,

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../components/Navbar";
 import { Deck } from "../components/Deck";
-import { SearchBar } from "../components/SearchBar";
 
 async function getDeck() {
   try {
