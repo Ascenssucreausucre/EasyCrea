@@ -1,52 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; // Utilisation de jwtDecode sans erreur
+import { useUser } from "../context/UserContext";
 
 export function NavBar() {
-  const [userData, setUserData] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      try {
-        // Décoder le token JWT pour extraire les informations utilisateur
-        const decoded = jwtDecode(token); // Utilisation de jwtDecode
-        setUserData(decoded); // Stocker les données de l'utilisateur dans l'état
-      } catch (error) {
-        console.error("Erreur lors du décodage du token", error);
-        localStorage.removeItem("token"); // Supprimer le token invalide
-        navigate("/login"); // Rediriger vers la page de login
-      }
-    }
-  }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Supprimer le token
-    setUserData(null); // Réinitialiser l'état utilisateur
-    navigate("/login"); // Rediriger vers la page de login
-  };
+  const { userData, logout } = useUser();
 
   return (
     <header>
-      <nav>
-        <NavLink to={"/"}>Home</NavLink>
+      <nav className="navbar">
+        <NavLink to="/" className="nav-link">
+          Home
+        </NavLink>
 
         {userData ? (
           <>
-            <NavLink to={`/createur/${userData.id_createur}`}>Profil</NavLink>
-            <button onClick={handleLogout} className="button logout-btn">
+            <NavLink
+              to={`/createur/${userData.id_createur}`}
+              className="nav-link"
+            >
+              Profil
+            </NavLink>
+            <button onClick={logout} className="button logout-btn">
               Déconnexion
             </button>
           </>
         ) : (
           <>
-            <NavLink to={"/login"} className="button login-btn">
+            <NavLink to="/login" className="button login-btn">
               Login
             </NavLink>
-            <NavLink to={"/sign-up"} className="button sign-up-btn">
+            <NavLink to="/sign-up" className="button sign-up-btn">
               Sign-Up
             </NavLink>
           </>

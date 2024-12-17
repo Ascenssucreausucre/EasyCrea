@@ -9,8 +9,6 @@ async function getDeck() {
     );
     const data = await response.json();
 
-    console.log(data.decks);
-
     // Assure-toi que "data" contient bien une liste
     if (data && Array.isArray(data.decks)) {
       return data.decks; // Retourner la liste correcte

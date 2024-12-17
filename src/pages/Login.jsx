@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/Navbar";
 import { Input } from "../components/Input";
+import { useUser } from "../context/UserContext"; // Importer useUser
 
 export function Login() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ export function Login() {
     mdp_createur: "",
   });
 
+  const { login } = useUser(); // Utilise login pour mettre à jour le contexte
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -39,11 +41,8 @@ export function Login() {
         throw new Error(data.error || "Erreur lors de la connexion");
       }
 
-      // Sauvegarde du token JWT
-      localStorage.setItem("token", data.token);
-      console.log("Token JWT reçu :", data.token);
-
-      alert("Connexion réussie !");
+      // Utiliser login pour mettre à jour le contexte utilisateur
+      login(data.token);
       navigate("/"); // Redirection
     } catch (error) {
       console.error("Erreur :", error.message);
