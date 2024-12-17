@@ -10,6 +10,7 @@ import {
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
+import { AjouterCarte } from "./pages/AjouterCarte";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/createur/:id",
     element: <Createur />,
+  },
+  {
+    path: "/deck/ajouter/:id",
+    element: <AjouterCarte />,
   },
 ]);
 

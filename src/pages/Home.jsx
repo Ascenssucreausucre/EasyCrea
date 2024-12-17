@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../components/Navbar";
 import { Deck } from "../components/Deck";
+import { SearchBar } from "../components/SearchBar";
 
 async function getDeck() {
   try {
@@ -40,6 +41,7 @@ export function Home() {
   return (
     <>
       <NavBar></NavBar>
+      {/* <SearchBar /> */}
       <h1>Liste des Decks</h1>
       {deckList.length > 0 ? (
         <div>
@@ -48,6 +50,7 @@ export function Home() {
               nbCartes={deck.nb_cartes}
               nbLikes={deck.nb_jaime}
               deckTitle={deck.titre_deck}
+              idDeck={deck.id_deck}
             /> // Assure-toi d'afficher un champ existant
           ))}
         </div>
