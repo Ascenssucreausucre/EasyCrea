@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavBar } from "../components/Navbar.jsx";
+import { NavBar } from "../components/Navbar";
 import { Deck } from "../components/Deck";
 
 async function getDeck() {
