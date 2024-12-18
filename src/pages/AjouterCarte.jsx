@@ -2,10 +2,20 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { NavBar } from "../components/Navbar";
 import { Input } from "../components/Input";
+import { useEffect } from "react";
 
 export function AjouterCarte() {
   const { id } = useParams(); // Récupère l'ID du deck depuis l'URL
   const navigate = useNavigate();
+  const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
+  
+  useEffect(()=>{
+    if(!token){
+      alert('Vous devez être connecté pour ajouter une carte')
+      navigate('/login');
+      return;
+    };
+  }, []);
 
   // Etat local pour gérer les données du formulaire
   const [formData, setFormData] = useState({
@@ -19,7 +29,6 @@ export function AjouterCarte() {
     deck_id: id, // Le deck_id est passé depuis l'URL
   });
 
-  const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
 
   // Fonction pour gérer le changement des inputs du formulaire
   const handleChange = (e) => {
@@ -34,13 +43,6 @@ export function AjouterCarte() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérification du token
-    if (!token) {
-      alert("Vous devez être connecté pour soumettre ce formulaire.");
-      navigate("/login");
-      return;
-    }
-
     try {
       const response = await fetch(
         "https://srochedix.alwaysdata.net/ReignApi/api/v1/carte", // URL de ton API
@@ -53,17 +55,14 @@ export function AjouterCarte() {
           body: JSON.stringify(formData), // Envoi des données du formulaire dans le corps de la requête
         }
       );
-      console.log(formData);
 
       // Vérifier si la réponse est correcte (statut 200 ou 201)
       if (!response.ok) {
-        console.log(response);
         throw new Error("Erreur de requête. Statut HTTP: " + response.status);
       }
 
       // Essayer de lire la réponse en JSON
-      const responseText = await response.text();
-      console.log(responseText); // Afficher la réponse brute pour analyser son contenu
+      const responseText = await response.text();// Afficher la réponse brute pour analyser son contenu
 
       const data = responseText ? JSON.parse(responseText) : {};
 
@@ -91,7 +90,9 @@ export function AjouterCarte() {
             type="text"
             placeholder="Texte de la carte"
             value={formData.texte_carte}
-            onChange={handleChange}
+            onChange={handleChange}  
+            caractereMin={50}
+            caractereMax={280}
             required
           />
 

@@ -1,4 +1,5 @@
 import { NavBar } from "../components/Navbar";
+import { DeckList } from "../components/ProfileDeckCard";
 import { useUser } from "../context/UserContext"; // Utilisation du hook personnalisé
 import { useState } from "react";
 import { useEffect } from "react";
@@ -31,8 +32,8 @@ export function Createur() {
     // Appel de la fonction getDeck lorsque le composant est monté
     async function fetchData() {
       const data = await getUserCards();
-      setInfos(data); // Mise à jour de l'état avec les données récupérées
-      console.log(data);
+      setInfos(data.deck); // Mise à jour de l'état avec les données récupérées
+      console.log(data.deck);
     }
     fetchData();
   }, []);
@@ -47,16 +48,7 @@ export function Createur() {
       <h1>Profil du créateur</h1>
       <p>Nom du créateur: {userData.nom_createur}</p>
       {infos.length > 0 ? (
-        <div>
-          {infos.deck.map((deck) => (
-            <div key={deck.id_deck}>
-              <h3>{deck.titre_deck}</h3>
-              <p>Nombre de cartes : {deck.nb_cartes}</p>
-              <p>Date de début : {deck.date_debut}</p>
-              <p>Date de fin : {deck.date_fin_deck}</p>
-            </div>
-          ))}
-        </div>
+       <DeckList infos={infos}/>
       ) : (
         <p>Chargement des decks...</p>
       )}
