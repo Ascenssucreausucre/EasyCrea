@@ -52,43 +52,35 @@ export function Login() {
 
   return (
     <>
-      <NavBar />
-      <div className="container mt-4">
-        <h1>Connexion</h1>
+      <div className="container">
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="ad_mail_createur" className="form-label">
-              E-Mail :
-            </label>
-            <Input
-              name="ad_mail_createur"
-              type="email"
-              placeholder="E-Mail"
-              value={formData.ad_mail_createur}
-              onChange={handleChange}
-              required
-            />
+          <h1>Connexion</h1>
+          <Input
+            label="E-Mail :"
+            name="ad_mail_createur"
+            type="email"
+            placeholder="E-Mail"
+            value={formData.ad_mail_createur}
+            onChange={handleChange}
+            required
+          />
+          <Input
+            label="Mot de Passe :"
+            name="mdp_createur"
+            type="password"
+            placeholder="Mot de Passe"
+            value={formData.mdp_createur}
+            onChange={handleChange}
+            required
+          />
+          <div className="button-container">
+            <button type="submit" className="button">
+              Se connecter
+            </button>
+            <a href="/" className="link">
+              Annuler
+            </a>
           </div>
-
-          <div className="mb-3">
-            <label htmlFor="mdp_createur" className="form-label">
-              Mot de Passe :
-            </label>
-            <Input
-              name="mdp_createur"
-              type="password"
-              placeholder="Mot de Passe"
-              value={formData.mdp_createur}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Se connecter
-          </button>
-          <a href="/" className="btn btn-link text-black">
-            Annuler
-          </a>
         </form>
       </div>
     </>

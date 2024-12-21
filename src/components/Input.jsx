@@ -23,46 +23,45 @@ export function Input({
   name,
   required = false,
   caractereMin,
-  caractereMax
+  caractereMax,
 }) {
   // Calcul de la longueur de l'input
   const length = value ? value.length : 0;
 
   // Message d'erreur basé sur les limites de caractères
-  const minError = caractereMin && length < caractereMin ? `Minimum de ${caractereMin} caractères requis.` : '';
-  const maxError = caractereMax && length > caractereMax ? `Maximum de ${caractereMax} caractères autorisés.` : '';
+  const minError =
+    caractereMin && length < caractereMin
+      ? `Minimum de ${caractereMin} caractères requis.`
+      : "";
+  const maxError =
+    caractereMax && length > caractereMax
+      ? `Maximum de ${caractereMax} caractères autorisés.`
+      : "";
 
   return (
-    <div>
-      {label && (
-        <label htmlFor={id}>
-          {label}
-        </label>
-      )}
-      <input
-        id={id}
-        type={type}
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        style={style}
-        required={required}
-        className="form-control"
-      />
-      
+    <div className="form-input">
+      {label && <label htmlFor={id}>{label}</label>}
+      <div>
+        <input
+          id={id}
+          type={type}
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          style={style}
+          required={required}
+          className="form-control"
+        />
+      </div>
       {/* Affichage du nombre de caractères uniquement si caractereMin ou caractereMax est renseigné */}
       {(caractereMin || caractereMax) && (
-        <p style={{ color: 'gray', fontSize: '0.85em' }}>
-          {length} caractères
-        </p>
+        <p style={{ color: "gray", fontSize: "0.85em" }}>{length} caractères</p>
       )}
 
       {/* Affichage des messages d'erreur si nécessaire */}
       {(minError || maxError) && (
-        <p style={{ color: 'red' }}>
-          {minError || maxError}
-        </p>
+        <p style={{ color: "red" }}>{minError || maxError}</p>
       )}
     </div>
   );

@@ -57,53 +57,41 @@ export function SignUp() {
 
   return (
     <>
-      <NavBar />
-      <div className="container mt-4">
-        <h1>Création d'un compte créateur</h1>
+      <div className="container">
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="ad_mail_createur" className="form-label">
-              E-Mail :
-            </label>
-            <Input
-              name="ad_mail_createur"
-              type="email"
-              placeholder="E-Mail"
-              value={formData.ad_mail_createur}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <h1>Création d'un compte créateur</h1>
 
-          <div className="mb-3">
-            <label htmlFor="mdp_createur" className="form-label">
-              Mot de Passe :
-            </label>
-            <Input
-              name="mdp_createur"
-              type="password"
-              placeholder="Mot de Passe"
-              value={formData.mdp_createur}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <Input
+            label="Nom d'utilisateur :"
+            name="nom_createur"
+            type="text"
+            placeholder="Nom d'utilisateur"
+            value={formData.nom_createur}
+            onChange={handleChange}
+            required
+          />
 
-          <div className="mb-3">
-            <label htmlFor="nom_createur" className="form-label">
-              Nom d'utilisateur :
-            </label>
-            <Input
-              name="nom_createur"
-              type="text"
-              placeholder="Nom d'utilisateur"
-              value={formData.nom_createur}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <Input
+            label="E-Mail :"
+            name="ad_mail_createur"
+            type="email"
+            placeholder="E-Mail"
+            value={formData.ad_mail_createur}
+            onChange={handleChange}
+            required
+          />
 
-          <div className="mb-3">
+          <Input
+            label="Mot de Passe :"
+            name="mdp_createur"
+            type="password"
+            placeholder="Mot de Passe"
+            value={formData.mdp_createur}
+            onChange={handleChange}
+            required
+          />
+
+          <div className="input-group">
             <label htmlFor="genre" className="form-label">
               Genre :
             </label>
@@ -123,25 +111,23 @@ export function SignUp() {
             </select>
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="ddn" className="form-label">
-              Date de naissance :
-            </label>
-            <Input
-              name="ddn"
-              type="date"
-              value={formData.ddn}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <Input
+            label="Date de naissance :"
+            name="ddn"
+            type="date"
+            value={formData.ddn}
+            onChange={handleChange}
+            required
+          />
 
-          <button type="submit" className="btn btn-primary">
-            Créer son compte créateur
-          </button>
-          <a href="/" className="btn btn-link text-black">
-            Annuler
-          </a>
+          <div className="button-container">
+            <button type="submit" className="button">
+              Créer son compte créateur
+            </button>
+            <a href="/" className="link">
+              Annuler
+            </a>
+          </div>
         </form>
       </div>
     </>

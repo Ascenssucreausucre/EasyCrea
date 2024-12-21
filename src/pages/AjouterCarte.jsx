@@ -8,13 +8,13 @@ export function AjouterCarte() {
   const { id } = useParams(); // Récupère l'ID du deck depuis l'URL
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
-  
-  useEffect(()=>{
-    if(!token){
-      alert('Vous devez être connecté pour ajouter une carte')
-      navigate('/login');
+
+  useEffect(() => {
+    if (!token) {
+      alert("Vous devez être connecté pour ajouter une carte");
+      navigate("/login");
       return;
-    };
+    }
   }, []);
 
   // Etat local pour gérer les données du formulaire
@@ -28,7 +28,6 @@ export function AjouterCarte() {
     valeurs_choix2_finances: "",
     deck_id: id, // Le deck_id est passé depuis l'URL
   });
-
 
   // Fonction pour gérer le changement des inputs du formulaire
   const handleChange = (e) => {
@@ -62,7 +61,7 @@ export function AjouterCarte() {
       }
 
       // Essayer de lire la réponse en JSON
-      const responseText = await response.text();// Afficher la réponse brute pour analyser son contenu
+      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
 
       const data = responseText ? JSON.parse(responseText) : {};
 
@@ -80,7 +79,6 @@ export function AjouterCarte() {
 
   return (
     <>
-      <NavBar />
       <div className="container mt-4">
         <h1>Ajouter une carte</h1>
         <form onSubmit={handleSubmit}>
@@ -90,7 +88,7 @@ export function AjouterCarte() {
             type="text"
             placeholder="Texte de la carte"
             value={formData.texte_carte}
-            onChange={handleChange}  
+            onChange={handleChange}
             caractereMin={50}
             caractereMax={280}
             required

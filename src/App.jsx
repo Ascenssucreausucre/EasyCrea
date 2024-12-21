@@ -11,29 +11,51 @@ import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
 import { AjouterCarte } from "./pages/AjouterCarte";
+import { NavBar } from "./components/Navbar";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUp />,
-  },
-  {
-    path: "/createur/:id",
-    element: <Createur />,
-  },
-  {
-    path: "/deck/ajouter/:id",
-    element: <AjouterCarte />,
+    element: <Root />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+        loader: () =>
+          fetch(`https://srochedix.alwaysdata.net/ReignApi/api/v1/decks`),
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/sign-up",
+        element: <SignUp />,
+      },
+      {
+        path: "/createur/:id",
+        element: <Createur />,
+      },
+      {
+        path: "/deck/ajouter/:id",
+        element: <AjouterCarte />,
+      },
+    ],
   },
 ]);
+
+function Root() {
+  return (
+    <>
+      <header>
+        <NavBar></NavBar>
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
+}
 
 function App() {
   // const navigate = useNavigate();

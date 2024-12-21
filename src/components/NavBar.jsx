@@ -5,8 +5,12 @@ export function NavBar() {
   const { userData, logout } = useUser();
 
   return (
-    <header>
-      <nav className="navbar">
+    <div className="navbar">
+      <a href="/">
+        <img src="/src/assets/EasyCrea.svg" alt="" />
+      </a>
+
+      <nav>
         <NavLink to="/" className="nav-link">
           Home
         </NavLink>
@@ -34,6 +38,6 @@ export function NavBar() {
           </>
         )}
       </nav>
-    </header>
+    </div>
   );
 }

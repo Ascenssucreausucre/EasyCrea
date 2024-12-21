@@ -44,11 +44,10 @@ export function Createur() {
 
   return (
     <div>
-      <NavBar />
       <h1>Profil du créateur</h1>
       <p>Nom du créateur: {userData.nom_createur}</p>
       {infos.length > 0 ? (
-       <DeckList infos={infos}/>
+        <DeckList infos={infos} />
       ) : (
         <p>Chargement des decks...</p>
       )}

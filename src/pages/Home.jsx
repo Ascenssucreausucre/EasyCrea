@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavBar } from "../components/Navbar";
 import { Deck } from "../components/Deck";
+import { useLoaderData } from "react-router-dom";
 
 async function getDeck() {
   try {
@@ -23,32 +24,19 @@ async function getDeck() {
 }
 
 export function Home() {
-  const [deckList, setDeckList] = useState([]); // État pour stocker les données récupérées
-
-  useEffect(() => {
-    // Appel de la fonction getDeck lorsque le composant est monté
-    async function fetchData() {
-      const data = await getDeck();
-      setDeckList(data); // Mise à jour de l'état avec les données récupérées
-    }
-
-    fetchData();
-  }, []); // Le tableau vide signifie que l'effet s'exécute une seule fois au montage
+  const deckList = useLoaderData().decks;
 
   return (
     <>
-      <NavBar></NavBar>
       {/* <SearchBar /> */}
       <h1>Liste des Decks</h1>
       {deckList.length > 0 ? (
         <div>
           {deckList.map((deck) => (
             <Deck
-              nbCartes={deck.nb_cartes}
-              nbLikes={deck.nb_jaime}
-              deckTitle={deck.titre_deck}
-              idDeck={deck.id_deck}
-            /> // Assure-toi d'afficher un champ existant
+              key={deck.id_deck} // Ajout de la prop `key` unique
+              deck={deck}
+            />
           ))}
         </div>
       ) : (
