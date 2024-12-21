@@ -29,9 +29,9 @@ export function Home() {
   return (
     <>
       {/* <SearchBar /> */}
-      <h1>Liste des Decks</h1>
+      <h1 className="title">Liste des Decks</h1>
       {deckList.length > 0 ? (
-        <div>
+        <div className="home-deck-list">
           {deckList.map((deck) => (
             <Deck
               key={deck.id_deck} // Ajout de la prop `key` unique

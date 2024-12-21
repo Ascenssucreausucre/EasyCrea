@@ -7,7 +7,7 @@ export function NavBar() {
   return (
     <div className="navbar">
       <a href="/">
-        <img src="/src/assets/EasyCrea.svg" alt="" />
+        <img src="/src/assets/img/EasyCrea.svg" alt="" />
       </a>
 
       <nav>

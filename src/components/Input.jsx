@@ -56,12 +56,16 @@ export function Input({
       </div>
       {/* Affichage du nombre de caractères uniquement si caractereMin ou caractereMax est renseigné */}
       {(caractereMin || caractereMax) && (
-        <p style={{ color: "gray", fontSize: "0.85em" }}>{length} caractères</p>
+        <p style={{ color: "gray", fontSize: "0.85em" }}>
+          {length}/{caractereMax} caractères
+        </p>
       )}
 
       {/* Affichage des messages d'erreur si nécessaire */}
       {(minError || maxError) && (
-        <p style={{ color: "red" }}>{minError || maxError}</p>
+        <p style={{ color: "red", fontSize: "0.85em" }}>
+          {minError || maxError}
+        </p>
       )}
     </div>
   );

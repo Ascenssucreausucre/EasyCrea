@@ -59,7 +59,7 @@ export function SignUp() {
     <>
       <div className="container">
         <form onSubmit={handleSubmit}>
-          <h1>Création d'un compte créateur</h1>
+          <h1 className="title">Création d'un compte créateur</h1>
 
           <Input
             label="Nom d'utilisateur :"

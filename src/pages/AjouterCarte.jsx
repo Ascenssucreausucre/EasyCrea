@@ -80,8 +80,8 @@ export function AjouterCarte() {
   return (
     <>
       <div className="container mt-4">
-        <h1>Ajouter une carte</h1>
         <form onSubmit={handleSubmit}>
+          <h1 className="title">Ajouter une carte</h1>
           <Input
             label="Texte de la carte"
             name="texte_carte"
@@ -93,73 +93,80 @@ export function AjouterCarte() {
             caractereMax={280}
             required
           />
-
-          <Input
-            label="Choix 1 - Texte"
-            name="valeurs_choix1_texte"
-            type="text"
-            placeholder="Texte du choix 1"
-            value={formData.valeurs_choix1_texte}
-            onChange={handleChange}
-            required
-          />
-
-          <Input
-            label="Choix 1 - Population"
-            name="valeurs_choix1_population"
-            type="number"
-            placeholder="Population pour le choix 1"
-            value={formData.valeurs_choix1_population}
-            onChange={handleChange}
-            required
-          />
-
-          <Input
-            label="Choix 1 - Finances"
-            name="valeurs_choix1_finances"
-            type="number"
-            placeholder="Finances pour le choix 1"
-            value={formData.valeurs_choix1_finances}
-            onChange={handleChange}
-            required
-          />
-
-          <Input
-            label="Choix 2 - Texte"
-            name="valeurs_choix2_texte"
-            type="text"
-            placeholder="Texte du choix 2"
-            value={formData.valeurs_choix2_texte}
-            onChange={handleChange}
-            required
-          />
-
-          <Input
-            label="Choix 2 - Population"
-            name="valeurs_choix2_population"
-            type="number"
-            placeholder="Population pour le choix 2"
-            value={formData.valeurs_choix2_population}
-            onChange={handleChange}
-            required
-          />
-
-          <Input
-            label="Choix 2 - Finances"
-            name="valeurs_choix2_finances"
-            type="number"
-            placeholder="Finances pour le choix 2"
-            value={formData.valeurs_choix2_finances}
-            onChange={handleChange}
-            required
-          />
-
-          <button type="submit" className="btn btn-primary">
-            Ajouter la carte
-          </button>
-          <a href="/" className="btn btn-link text-black">
-            Annuler
-          </a>
+          <div className="choices">
+            <div className="choice">
+              <p>Choix 1 :</p>
+              <Input
+                label="Texte"
+                name="valeurs_choix1_texte"
+                type="text"
+                placeholder="Texte du choix 1"
+                value={formData.valeurs_choix1_texte}
+                onChange={handleChange}
+                required
+              />
+              <div>
+                <Input
+                  label="Population"
+                  name="valeurs_choix1_population"
+                  type="number"
+                  placeholder="Population pour le choix 1"
+                  value={formData.valeurs_choix1_population}
+                  onChange={handleChange}
+                  required
+                />
+                <Input
+                  label="Finances"
+                  name="valeurs_choix1_finances"
+                  type="number"
+                  placeholder="Finances pour le choix 1"
+                  value={formData.valeurs_choix1_finances}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="choice">
+              <p>Choix 2 :</p>
+              <Input
+                label="Texte"
+                name="valeurs_choix2_texte"
+                type="text"
+                placeholder="Texte du choix 2"
+                value={formData.valeurs_choix2_texte}
+                onChange={handleChange}
+                required
+              />
+              <div>
+                <Input
+                  label="Population"
+                  name="valeurs_choix2_population"
+                  type="number"
+                  placeholder="Population pour le choix 2"
+                  value={formData.valeurs_choix2_population}
+                  onChange={handleChange}
+                  required
+                />
+                <Input
+                  label="Finances"
+                  name="valeurs_choix2_finances"
+                  type="number"
+                  placeholder="Finances pour le choix 2"
+                  value={formData.valeurs_choix2_finances}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div className="button-container">
+            <button type="submit" className="button">
+              Ajouter la carte
+            </button>
+            <a href="/" className="link">
+              Annuler
+            </a>
+          </div>
         </form>
       </div>
     </>

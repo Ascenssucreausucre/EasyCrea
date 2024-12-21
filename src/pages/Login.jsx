@@ -6,8 +6,8 @@ import { useUser } from "../context/UserContext"; // Importer useUser
 
 export function Login() {
   const [formData, setFormData] = useState({
-    ad_mail_createur: "",
-    mdp_createur: "",
+    ad_mail: "",
+    mdp: "",
   });
 
   const { login } = useUser(); // Utilise login pour mettre à jour le contexte
@@ -25,7 +25,7 @@ export function Login() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://srochedix.alwaysdata.net/ReignApi/api/v1/createur/login",
+        "https://srochedix.alwaysdata.net/ReignApi/api/v1/auth/login",
         {
           method: "POST",
           headers: {
@@ -54,10 +54,10 @@ export function Login() {
     <>
       <div className="container">
         <form onSubmit={handleSubmit}>
-          <h1>Connexion</h1>
+          <h1 className="title">Connexion</h1>
           <Input
             label="E-Mail :"
-            name="ad_mail_createur"
+            name="ad_mail"
             type="email"
             placeholder="E-Mail"
             value={formData.ad_mail_createur}
@@ -66,7 +66,7 @@ export function Login() {
           />
           <Input
             label="Mot de Passe :"
-            name="mdp_createur"
+            name="mdp"
             type="password"
             placeholder="Mot de Passe"
             value={formData.mdp_createur}
