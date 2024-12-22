@@ -24,6 +24,7 @@ export function Input({
   required = false,
   caractereMin,
   caractereMax,
+  disabled,
 }) {
   // Calcul de la longueur de l'input
   const length = value ? value.length : 0;
@@ -51,6 +52,7 @@ export function Input({
           onChange={onChange}
           style={style}
           required={required}
+          disabled={disabled}
           className="form-control"
         />
       </div>

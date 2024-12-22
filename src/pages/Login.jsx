@@ -77,9 +77,9 @@ export function Login() {
             <button type="submit" className="button">
               Se connecter
             </button>
-            <a href="/" className="link">
+            <Link to={"/"} className="link">
               Annuler
-            </a>
+            </Link>
           </div>
         </form>
       </div>

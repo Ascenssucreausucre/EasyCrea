@@ -33,7 +33,6 @@ export function Createur() {
     async function fetchData() {
       const data = await getUserCards();
       setInfos(data.deck); // Mise à jour de l'état avec les données récupérées
-      console.log(data.deck);
     }
     fetchData();
   }, []);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { NavBar } from "../components/Navbar";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
@@ -163,9 +163,9 @@ export function AjouterCarte() {
             <button type="submit" className="button">
               Ajouter la carte
             </button>
-            <a href="/" className="link">
+            <Link to={"/"} className="link">
               Annuler
-            </a>
+            </Link>
           </div>
         </form>
       </div>

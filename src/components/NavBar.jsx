@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 
 export function NavBar() {
@@ -6,13 +6,13 @@ export function NavBar() {
 
   return (
     <div className="navbar">
-      <a href="/">
+      <Link to={"/"}>
         <img src="/src/assets/img/EasyCrea.svg" alt="" />
-      </a>
+      </Link>
 
       <nav>
         <NavLink to="/" className="nav-link">
-          Home
+          Decks
         </NavLink>
 
         {userData ? (

@@ -124,9 +124,9 @@ export function SignUp() {
             <button type="submit" className="button">
               Créer son compte créateur
             </button>
-            <a href="/" className="link">
+            <Link to={"/"} className="link">
               Annuler
-            </a>
+            </Link>
           </div>
         </form>
       </div>
