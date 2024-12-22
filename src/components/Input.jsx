@@ -17,7 +17,6 @@ export function Input({
   value,
   onChange,
   style,
-  id,
   label,
   type = "text",
   name,
@@ -41,10 +40,10 @@ export function Input({
 
   return (
     <div className="form-input">
-      {label && <label htmlFor={id}>{label}</label>}
+      {label && <label htmlFor={name}>{label}</label>}
       <div>
         <input
-          id={id}
+          id={name}
           type={type}
           name={name}
           value={value}
