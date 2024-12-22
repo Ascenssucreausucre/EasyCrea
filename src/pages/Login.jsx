@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { NavBar } from "../components/Navbar";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useUser } from "../context/UserContext"; // Importer useUser
 
@@ -73,6 +72,12 @@ export function Login() {
             onChange={handleChange}
             required
           />
+          <p>
+            Vous n'avez pas encore de compte ?{" "}
+            <Link to={"/sign-up"} className="link no-account">
+              Inscrivez-vous !
+            </Link>
+          </p>
           <div className="button-container">
             <button type="submit" className="button">
               Se connecter

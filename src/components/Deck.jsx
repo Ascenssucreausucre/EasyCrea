@@ -21,7 +21,7 @@ export function Deck({ deck }) {
         <span>Date de fin : </span>
         {deck.date_fin_deck}
       </p>
-      <NavLink to={`/deck/ajouter/${deck.id_deck}`}>
+      <NavLink to={`/deck/ajouter/${deck.id_deck}`} className="link">
         Ajouter une carte au deck
       </NavLink>
     </div>

@@ -156,8 +156,8 @@ nav {
   color: var(--primary-color);
 }
 .deck span {
-  color: var(--secondary-color);
-  font-weight: 600;
+  /* color: var(--secondary-color); */
+  font-weight: 700;
 }
 .stats {
   position: absolute;
@@ -310,6 +310,11 @@ select {
 }
 .choice > div:last-child .form-input {
   margin-inline: 2px;
+}
+form > p:last-of-type,
+.no-account {
+  font-size: var(--small-font-size);
+  text-align: center;
 }
 
 /* MEDIA QUERIES */
