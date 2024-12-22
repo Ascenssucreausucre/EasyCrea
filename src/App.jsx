@@ -11,7 +11,7 @@ import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
 import { AjouterCarte } from "./pages/AjouterCarte";
-import { NavBar } from "./components/Navbar";
+import { NavBar } from "./components/Navbar.jsx";
 
 const router = createBrowserRouter([
   {
