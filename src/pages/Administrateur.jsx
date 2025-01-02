@@ -1,18 +1,16 @@
-import { NavBar } from "../components/Navbar";
 import { DeckList } from "../components/ProfileDeckCard";
 import { useUser } from "../context/UserContext"; // Utilisation du hook personnalisé
 import { useState } from "react";
 import { useEffect } from "react";
 
-export function Createur() {
+export function Administrateur() {
   const { userData } = useUser(); // Accéder aux données utilisateur
-  console.log(userData);
 
   async function getUserCards() {
     const userId = userData?.id_createur;
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/createur/${userId}`
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/administrateur`
       );
       const data = await response.json();
       if (data && Array.isArray(data.deck)) {
@@ -44,8 +42,8 @@ export function Createur() {
 
   return (
     <div>
-      <h1 className="title">Profil du créateur</h1>
-      <p>Nom du créateur: {userData.nom_createur}</p>
+      <h1 className="title">Admin Dashboard</h1>
+      <p>Affichage des decks et cartes :</p>
       {infos.length > 0 ? (
         <DeckList infos={infos} />
       ) : (

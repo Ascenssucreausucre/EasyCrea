@@ -12,6 +12,8 @@ import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
 import { AjouterCarte } from "./pages/AjouterCarte";
 import { NavBar } from "./components/Navbar";
+import { Administrateur } from "./pages/Administrateur";
+import { AjouterDeck } from "./pages/AjouterDeck";
 
 const router = createBrowserRouter([
   {
@@ -37,8 +39,16 @@ const router = createBrowserRouter([
         element: <Createur />,
       },
       {
+        path: "/administrateur/",
+        element: <Administrateur />,
+      },
+      {
         path: "/deck/ajouter/:id",
         element: <AjouterCarte />,
+      },
+      {
+        path: "/ajouter-deck",
+        element: <AjouterDeck />,
       },
     ],
   },

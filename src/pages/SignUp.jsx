@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { NavBar } from "../components/Navbar";
 import { Input } from "../components/Input";
 
 export function SignUp() {
   const [formData, setFormData] = useState({
     ad_mail_createur: "",
     mdp_createur: "",
+    mdp_confirm_createur: "", // Champ de confirmation du mot de passe
     nom_createur: "",
     genre: "",
     ddn: "",
   });
+  const [error, setError] = useState(""); // Pour stocker l'erreur liée aux mots de passe
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,6 +24,16 @@ export function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Vérifier si les mots de passe sont identiques
+    if (formData.mdp_createur !== formData.mdp_confirm_createur) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    // Créer un objet formData sans le champ mdp_confirm_createur
+    const { mdp_confirm_createur, ...dataToSend } = formData;
+
     try {
       const response = await fetch(
         "https://srochedix.alwaysdata.net/ReignApi/api/v1/createur",
@@ -31,7 +42,7 @@ export function SignUp() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(dataToSend), // On envoie les données sans mdp_confirm_createur
         }
       );
 
@@ -90,6 +101,20 @@ export function SignUp() {
             onChange={handleChange}
             required
           />
+
+          {/* Champ de confirmation du mot de passe */}
+          <Input
+            label="Confirmer le Mot de Passe :"
+            name="mdp_confirm_createur"
+            type="password"
+            placeholder="Confirmer le Mot de Passe"
+            value={formData.mdp_confirm_createur}
+            onChange={handleChange}
+            required
+          />
+
+          {/* Affichage de l'erreur si les mots de passe ne correspondent pas */}
+          {error && <p style={{ color: "red" }}>{error}</p>}
 
           <div className="input-group">
             <label htmlFor="genre" className="form-label">

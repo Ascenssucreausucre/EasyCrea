@@ -56,7 +56,7 @@ export function Input({
         />
       </div>
       {/* Affichage du nombre de caractères uniquement si caractereMin ou caractereMax est renseigné */}
-      {(caractereMin || caractereMax) && (
+      {(caractereMin || caractereMax) && !disabled && (
         <p style={{ color: "gray", fontSize: "0.85em" }}>
           {length}/{caractereMax} caractères
         </p>

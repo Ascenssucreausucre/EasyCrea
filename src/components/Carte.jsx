@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Input } from "./Input";
+import { useUser } from "../context/UserContext";
 
 export function Carte({ carte }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
+  const { userData } = useUser(); // Accéder aux données utilisateur
 
   // État local pour gérer les valeurs modifiables
   const [formData, setFormData] = useState({
@@ -26,6 +28,40 @@ export function Carte({ carte }) {
 
   const handleEditClick = () => {
     setIsEditable(true); // Activer le mode modifiable
+  };
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/${carte.id_carte}`, // URL de l'API pour créer un deck
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
+          },
+        }
+      );
+
+      // Vérifier si la réponse est correcte (statut 200 ou 201)
+      if (!response.ok) {
+        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
+      }
+
+      // Essayer de lire la réponse en JSON
+      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
+      const data = responseText ? JSON.parse(responseText) : {};
+
+      if (!data) {
+        throw new Error("La réponse de l'API est vide ou mal formatée.");
+      }
+
+      alert("Carte supprimée avec succès !");
+      navigate("/"); // Redirection vers la page d'accueil après succès
+    } catch (error) {
+      console.error("Erreur :", error.message);
+      alert(`Une erreur est survenue : ${error.message}`);
+    }
   };
   const handleSubmit = async (e) => {
     setIsEditable(false); // Sauvegarder et désactiver le mode modifiable
@@ -80,7 +116,7 @@ export function Carte({ carte }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="carte">
       <form>
         <h1 className="title">Carte</h1>
 
@@ -170,24 +206,30 @@ export function Carte({ carte }) {
             </div>
           </div>
         </div>
+        {userData.userType === "administrateur" ? (
+          <div className="button-container">
+            {isEditable ? (
+              <>
+                <button type="button" className="button" onClick={handleSubmit}>
+                  Sauvegarder
+                </button>
 
-        <div className="button-container">
-          {isEditable ? (
-            <>
-              <button type="button" className="button" onClick={handleSubmit}>
-                Sauvegarder
-              </button>
-
-              <a className="link" onClick={handleCancel}>
-                Annuler
-              </a>
-            </>
-          ) : (
-            <button className="button" onClick={handleEditClick}>
-              Modifier
-            </button>
-          )}
-        </div>
+                <a className="link" onClick={handleCancel}>
+                  Annuler
+                </a>
+              </>
+            ) : (
+              <>
+                <button className="button" onClick={handleEditClick}>
+                  Modifier
+                </button>
+                <a className="link delete-button" onClick={handleDelete}>
+                  Supprimer la carte
+                </a>
+              </>
+            )}
+          </div>
+        ) : null}
       </form>
     </div>
   );

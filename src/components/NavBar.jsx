@@ -17,15 +17,22 @@ export function NavBar() {
 
         {userData ? (
           <>
-            <NavLink
-              to={`/createur/${userData.id_createur}`}
-              className="nav-link"
-            >
-              Profil
-            </NavLink>
-            <button onClick={logout} className="button logout-btn">
+            {userData.userType === "administrateur" ? (
+              <NavLink to={`/administrateur/`} className="nav-link">
+                Dashboard
+              </NavLink>
+            ) : (
+              <NavLink
+                to={`/createur/${userData.id_createur}`}
+                className="nav-link"
+              >
+                Profil
+              </NavLink>
+            )}
+
+            <NavLink to="/" onClick={logout} className="button logout-btn">
               Déconnexion
-            </button>
+            </NavLink>
           </>
         ) : (
           <>

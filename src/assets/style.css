@@ -60,6 +60,12 @@ html {
 .button:hover {
   background-color: #36206d;
 }
+.add-button {
+  margin-inline: auto;
+}
+.delete-button.link {
+  color: red;
+}
 .nav-link,
 .link {
   text-decoration: none;
@@ -215,8 +221,17 @@ nav {
   font-size: var(--small-font-size);
 }
 
-/* FORMS */
-/* FORMS */
+/* CARTE */
+/* CARTE */
+
+.carte {
+  margin-bottom: 5px;
+  width: 90%;
+  margin-inline: auto;
+}
+
+/* FORM  */
+/* FORM  */
 
 form {
   background-color: var(--color-white);
@@ -227,7 +242,8 @@ form {
   margin-inline: auto;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-.form-input {
+.form-input,
+.input-group {
   margin-block: 20px;
 }
 form input {
@@ -273,10 +289,12 @@ select {
   margin-left: 5px;
 }
 .button-container {
-  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+form .button-container {
+  margin-top: 50px;
 }
 .choices {
   display: flex;

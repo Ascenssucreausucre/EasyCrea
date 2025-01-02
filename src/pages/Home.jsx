@@ -1,30 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NavBar } from "../components/Navbar";
 import { Deck } from "../components/Deck";
-import { useLoaderData } from "react-router-dom";
-
-async function getDeck() {
-  try {
-    const response = await fetch(
-      `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks`
-    );
-    const data = await response.json();
-
-    // Assure-toi que "data" contient bien une liste
-    if (data && Array.isArray(data.decks)) {
-      return data.decks; // Retourner la liste correcte
-    } else {
-      console.error("Données inattendues:", data);
-      return []; // Retourner un tableau vide si la structure est incorrecte
-    }
-  } catch (error) {
-    console.error("Erreur lors de la récupération des decks:", error);
-    return []; // Retourner un tableau vide en cas d'erreur
-  }
-}
+import { NavLink, useLoaderData } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 export function Home() {
   const deckList = useLoaderData().decks;
+  const { userData } = useUser(); // Accéder aux données utilisateur
 
   return (
     <>
@@ -42,6 +23,11 @@ export function Home() {
       ) : (
         <p>Chargement des decks...</p>
       )}
+      {userData && userData.userType === "administrateur" ? (
+        <NavLink className="button add-button" to={"/ajouter-deck"}>
+          Ajouter un deck
+        </NavLink>
+      ) : null}
     </>
   );
 }
