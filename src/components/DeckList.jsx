@@ -9,9 +9,11 @@ export function DeckList({ infos }) {
       {infos.map((deck) => (
         <div key={deck.id_deck} className="deck-card">
           <Deck deck={deck} />
-          {deck.cartes.map((carte) => (
-            <Carte key={carte.id_carte} carte={carte} />
-          ))}
+          <div className="card-list">
+            {deck.cartes.map((carte) => (
+              <Carte key={carte.id_carte} carte={carte} />
+            ))}
+          </div>
         </div>
       ))}
     </div>

@@ -123,7 +123,7 @@ export function Carte({ carte }) {
         <Input
           label="Texte de la carte"
           name="texte_carte"
-          type="text"
+          type="textarea"
           placeholder="Texte de la carte"
           value={formData.texte_carte}
           onChange={handleChange}
@@ -224,7 +224,7 @@ export function Carte({ carte }) {
                   Modifier
                 </button>
                 <a className="link delete-button" onClick={handleDelete}>
-                  Supprimer la carte
+                  Supprimer
                 </a>
               </>
             )}

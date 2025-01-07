@@ -85,7 +85,7 @@ export function AjouterCarte() {
           <Input
             label="Texte de la carte"
             name="texte_carte"
-            type="text"
+            type="textarea"
             placeholder="Texte de la carte"
             value={formData.texte_carte}
             onChange={handleChange}

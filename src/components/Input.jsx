@@ -42,18 +42,33 @@ export function Input({
     <div className="form-input">
       {label && <label htmlFor={name}>{label}</label>}
       <div>
-        <input
-          id={name}
-          type={type}
-          name={name}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-          style={style}
-          required={required}
-          disabled={disabled}
-          className="form-control"
-        />
+        {type === "textarea" ? (
+          <textarea
+            id={name}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            onChange={onChange}
+            style={style}
+            required={required}
+            disabled={disabled}
+            className="form-control"
+            rows={5} // Nombre de lignes visibles par défaut
+          ></textarea>
+        ) : (
+          <input
+            id={name}
+            type={type}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            onChange={onChange}
+            style={style}
+            required={required}
+            disabled={disabled}
+            className="form-control"
+          />
+        )}
       </div>
       {/* Affichage du nombre de caractères uniquement si caractereMin ou caractereMax est renseigné */}
       {(caractereMin || caractereMax) && !disabled && (

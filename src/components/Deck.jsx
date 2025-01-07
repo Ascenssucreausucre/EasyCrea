@@ -6,6 +6,11 @@ export function Deck({ deck }) {
   const { userData } = useUser();
   const token = localStorage.getItem("token");
 
+  const formatDate = (dateString) => {
+    if (!dateString) return ""; // Si la date est vide ou invalide
+    return dateString.split(" ")[0]; // Garde uniquement "YYYY-MM-DD"
+  };
+
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
@@ -48,11 +53,11 @@ export function Deck({ deck }) {
           <h3 className="goofy">{deck.titre_deck}</h3>
           <p className="date">
             <span>Date de début : </span>
-            {deck.date_debut}
+            {formatDate(deck.date_debut)}
           </p>
           <p className="date">
             <span>Date de fin : </span>
-            {deck.date_fin_deck}
+            {formatDate(deck.date_fin_deck)}
           </p>
         </div>
         <div className="deck-stats">
@@ -66,7 +71,7 @@ export function Deck({ deck }) {
       </div>
       <div className="button-container">
         <NavLink to={`/deck/ajouter/${deck.id_deck}`} className="link">
-          Ajouter une carte au deck
+          Ajouter une carte
         </NavLink>
         {userData && userData.userType === "administrateur" ? (
           <a className="link delete-button" onClick={handleDelete}>

@@ -1,4 +1,4 @@
-import { DeckList } from "../components/ProfileDeckCard";
+import { DeckList } from "../components/DeckList";
 import { useUser } from "../context/UserContext"; // Utilisation du hook personnalisé
 import { useState } from "react";
 import { useEffect } from "react";
