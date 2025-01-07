@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck }) {
   const { userData } = useUser();
@@ -42,24 +43,27 @@ export function Deck({ deck }) {
 
   return (
     <div className="deck" key={deck.id_deck}>
-      <h3 className="goofy">{deck.titre_deck}</h3>
-      <div className="stats">
-        <div className="nb-carte">
-          <p>{deck.nb_cartes} cartes</p>
+      <div className="deck-content">
+        <div className="deck-text">
+          <h3 className="goofy">{deck.titre_deck}</h3>
+          <p className="date">
+            <span>Date de début : </span>
+            {deck.date_debut}
+          </p>
+          <p className="date">
+            <span>Date de fin : </span>
+            {deck.date_fin_deck}
+          </p>
         </div>
-        <p className="nb-likes">
-          {deck.nb_jaime || 0}{" "}
-          <img className="like" src="/src/assets/img/heart.svg" alt="" />
-        </p>
+        <div className="deck-stats">
+          <div className="nb-carte">
+            <p>{deck.nb_cartes} cartes</p>
+          </div>
+          <p className="nb-likes">
+            {deck.nb_jaime || 0} <img className="like" src={heart} alt="" />
+          </p>
+        </div>
       </div>
-      <p className="date">
-        <span>Date de début : </span>
-        {deck.date_debut}
-      </p>
-      <p className="date">
-        <span>Date de fin : </span>
-        {deck.date_fin_deck}
-      </p>
       <div className="button-container">
         <NavLink to={`/deck/ajouter/${deck.id_deck}`} className="link">
           Ajouter une carte au deck

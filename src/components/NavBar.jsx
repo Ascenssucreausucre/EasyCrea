@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import logo from "/src/assets/img/EasyCrea.svg";
 
 export function NavBar() {
   const { userData, logout } = useUser();
@@ -7,7 +8,7 @@ export function NavBar() {
   return (
     <div className="navbar">
       <Link to={"/"}>
-        <img src="/src/assets/img/EasyCrea.svg" alt="" />
+        <img src={logo} alt="" />
       </Link>
 
       <nav>

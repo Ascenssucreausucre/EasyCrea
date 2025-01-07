@@ -1,12 +1,5 @@
-import { useState } from "react";
 import { Home } from "./pages/Home";
-import {
-  createBrowserRouter,
-  Link,
-  Outlet,
-  NavLink,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
