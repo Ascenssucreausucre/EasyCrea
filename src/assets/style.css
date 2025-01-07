@@ -149,7 +149,7 @@ nav {
   position: relative;
   background-color: var(--color-white);
   margin-block: 20px;
-  padding: 20px 30px;
+  padding: 10px 30px;
   border-radius: 10px;
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
   width: 48%;
@@ -177,13 +177,14 @@ nav {
   display: flex;
   justify-content: space-between;
 }
-.date {
+.deck-text {
   font-size: var(--small-font-size);
 }
 .nb-likes {
   font-size: var(--big-font-size);
   color: #ff0000;
   font-weight: 900;
+  display: flex;
 }
 .like {
   height: var(--big-font-size);
@@ -193,8 +194,9 @@ nav {
   margin-inline: 20px;
   color: white;
   padding: 20px 5px;
+  aspect-ratio: 5/7;
+  height: 80%;
   border-radius: 15px;
-  width: 60px;
   position: relative;
   border: solid var(--color-white) 2px;
 }
@@ -228,7 +230,8 @@ nav {
 }
 .nb-carte p {
   font-weight: 700;
-  font-size: var(--small-font-size);
+  font-size: var(--medium-font-size);
+  text-align: center;
 }
 
 /* CARTE */

@@ -1,10 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck }) {
   const { userData } = useUser();
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     if (!dateString) return ""; // Si la date est vide ou invalide
@@ -51,18 +52,22 @@ export function Deck({ deck }) {
       <div className="deck-content">
         <div className="deck-text">
           <h3 className="goofy">{deck.titre_deck}</h3>
-          <p className="date">
+          <p>
             <span>Date de début : </span>
             {formatDate(deck.date_debut)}
           </p>
-          <p className="date">
+          <p>
             <span>Date de fin : </span>
             {formatDate(deck.date_fin_deck)}
+          </p>
+          <p>
+            <span>Nombre de cartes : </span>
+            {deck.nb_cartes_ajoutées}/{deck.nb_cartes}
           </p>
         </div>
         <div className="deck-stats">
           <div className="nb-carte">
-            <p>{deck.nb_cartes} cartes</p>
+            <p>{deck.nb_cartes}</p>
           </div>
           <p className="nb-likes">
             {deck.nb_jaime || 0} <img className="like" src={heart} alt="" />

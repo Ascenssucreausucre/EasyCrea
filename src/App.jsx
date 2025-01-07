@@ -34,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/",
         element: <Administrateur />,
+        loader: () =>
+          fetch(
+            `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/administrateur`
+          ),
       },
       {
         path: "/deck/ajouter/:id",
