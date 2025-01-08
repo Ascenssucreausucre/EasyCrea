@@ -106,6 +106,10 @@ main {
   padding-block: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 10, 0.1);
 }
+.burger {
+  z-index: 100;
+  display: none;
+}
 .navbar img {
   height: 100%;
 }
@@ -376,12 +380,27 @@ form > p:last-of-type,
   main {
     padding-inline: 5vw;
   }
+  .burger {
+    display: block;
+  }
   .navbar {
-    justify-content: center;
+    justify-content: space-between;
+    height: 80px;
     /* box-shadow: 0 0 5px rgba(0, 0, 10, 0.1); */
   }
   nav {
-    display: none;
+    position: absolute;
+    flex-direction: column;
+    background-color: var(--background-color);
+    width: 80vw;
+    top: 0;
+    right: -80vw;
+    height: 100dvh;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+    transition: right 0.2s ease-in;
+  }
+  nav.active {
+    right: 0;
   }
   .deck {
     padding: 5px 10px;
