@@ -6,6 +6,7 @@ export function Carte({ carte }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
   const { userData } = useUser(); // Accéder aux données utilisateur
+  console.log(userData);
 
   // État local pour gérer les valeurs modifiables
   const [formData, setFormData] = useState({
@@ -118,7 +119,13 @@ export function Carte({ carte }) {
   return (
     <div className="carte">
       <form>
-        <h1 className="title">Carte</h1>
+        {userData.userType === "administrateur" ? (
+          carte.id_createur ? (
+            <h2 className="title">Créée par {carte.id_createur}</h2>
+          ) : (
+            <h2 className="title">Carte Admin</h2>
+          )
+        ) : null}
 
         <Input
           label="Texte de la carte"
