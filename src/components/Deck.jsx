@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import { useRef } from "react";
 import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck }) {
@@ -40,11 +41,20 @@ export function Deck({ deck }) {
       }
 
       alert("Deck supprimé avec succès !");
-      navigate("/"); // Redirection vers la page d'accueil après succès
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
     }
+  };
+
+  const dialogRef = useRef(null); // Référence au <dialog>
+
+  const handleOpenDialog = () => {
+    dialogRef.current.showModal(); // Affiche le <dialog>
+  };
+
+  const handleCloseDialog = () => {
+    dialogRef.current.close(); // Ferme le <dialog>
   };
 
   return (
@@ -79,11 +89,24 @@ export function Deck({ deck }) {
           Ajouter une carte
         </NavLink>
         {userData && userData.userType === "administrateur" ? (
-          <a className="link delete-button" onClick={handleDelete}>
+          <a className="link delete-button" onClick={handleOpenDialog}>
             Supprimer le deck
           </a>
         ) : null}
       </div>
+      <dialog className="verif" ref={dialogRef}>
+        <p>
+          Êtes vous sûr de supprimer ce deck ? Cette action est irreversible.
+        </p>
+        <div className="button-container">
+          <a className="link delete-button" onClick={handleDelete}>
+            Supprimer le deck
+          </a>
+          <a className="link" onClick={handleCloseDialog}>
+            Annuler
+          </a>
+        </div>
+      </dialog>
     </div>
   );
 }

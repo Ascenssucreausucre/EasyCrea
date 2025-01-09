@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { NavBar } from "../components/NavBar";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
 

@@ -170,6 +170,10 @@ nav {
   font-size: var(--big-font-size);
   font-weight: 900;
   color: var(--primary-color);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  width: 100%;
 }
 .deck span {
   /* color: var(--secondary-color); */
@@ -185,6 +189,7 @@ nav {
 }
 .deck-text {
   font-size: var(--small-font-size);
+  overflow-x: hidden;
 }
 .nb-likes {
   font-size: var(--big-font-size);
@@ -258,6 +263,39 @@ nav {
   min-width: 200px;
   margin-inline: auto;
   padding: 10px 20px;
+}
+
+.verif {
+  position: fixed;
+  width: 40vw;
+  margin: 0;
+  border: solid var(--primary-color) 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin-inline: auto;
+  background-color: var(--background-color);
+  border-radius: 15px;
+  padding: 10px 20px;
+  top: 100px;
+  z-index: 101;
+  opacity: 1;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+.verif p {
+  margin-bottom: 10px;
+}
+.verif .button-container .link,
+.verif p {
+  font-size: var(--medium-font-size);
+  font-weight: 800;
+}
+.verif::backdrop {
+  background-color: rgba(0, 0, 0, 0.253);
+  position: fixed;
+  pointer-events: none;
 }
 
 /* FORM  */

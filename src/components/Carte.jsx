@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Input } from "./Input";
 import { useUser } from "../context/UserContext";
+import { useRef } from "react";
 
 export function Carte({ carte }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
   const { userData } = useUser(); // Accéder aux données utilisateur
-  console.log(userData);
-
   // État local pour gérer les valeurs modifiables
   const [formData, setFormData] = useState({
     texte_carte: carte.texte_carte,
@@ -58,7 +57,7 @@ export function Carte({ carte }) {
       }
 
       alert("Carte supprimée avec succès !");
-      navigate("/"); // Redirection vers la page d'accueil après succès
+      handleCloseDialog();
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
@@ -89,17 +88,24 @@ export function Carte({ carte }) {
       // Essayer de lire la réponse en JSON
       const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
       const data = responseText ? JSON.parse(responseText) : {};
-      console.log(data);
 
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
-
-      alert("Carte modifiée avec succès !");
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
     }
+  };
+
+  const dialogRef = useRef(null); // Référence au <dialog>
+
+  const handleOpenDialog = () => {
+    dialogRef.current.showModal(); // Affiche le <dialog>
+  };
+
+  const handleCloseDialog = () => {
+    dialogRef.current.close(); // Ferme le <dialog>
   };
 
   const handleCancel = (e) => {
@@ -230,7 +236,7 @@ export function Carte({ carte }) {
                 <button className="button" onClick={handleEditClick}>
                   Modifier
                 </button>
-                <a className="link delete-button" onClick={handleDelete}>
+                <a className="link delete-button" onClick={handleOpenDialog}>
                   Supprimer
                 </a>
               </>
@@ -238,6 +244,20 @@ export function Carte({ carte }) {
           </div>
         ) : null}
       </form>
+      <dialog className="verif" ref={dialogRef}>
+        <p>
+          Êtes vous sûr de supprimer cette carte ? Cette action est
+          irreversible.
+        </p>
+        <div className="button-container">
+          <a className="link delete-button" onClick={handleDelete}>
+            Supprimer la carte
+          </a>
+          <a className="link" onClick={handleCloseDialog}>
+            Annuler
+          </a>
+        </div>
+      </dialog>
     </div>
   );
 }
