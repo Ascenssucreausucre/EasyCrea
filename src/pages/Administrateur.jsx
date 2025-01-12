@@ -1,8 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { DeckList } from "../components/DeckList";
 import { useUser } from "../context/UserContext"; // Utilisation du hook personnalisé
-import { useState } from "react";
-import { useEffect } from "react";
 
 export function Administrateur() {
   const { userData } = useUser(); // Accéder aux données utilisateur

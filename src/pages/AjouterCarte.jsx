@@ -1,12 +1,32 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
+import { Carte } from "../components/Carte";
 
 export function AjouterCarte() {
   const { id } = useParams(); // Récupère l'ID du deck depuis l'URL
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
+  const [randomCard, setRandomCard] = useState({
+    id_carte: "",
+    texte_carte: "Chargement...",
+    valeurs_choix1: {
+      texte: "",
+      population: "",
+      finances: "",
+    },
+    valeurs_choix2: {
+      texte: "",
+      population: "",
+      finances: "",
+    },
+    date_soumission: "",
+    ordre_soumission: "",
+    id_administrateur: "",
+    id_createur: "",
+    id_deck: "",
+  }); // État pour la carte aléatoire
 
   useEffect(() => {
     if (!token) {
@@ -14,7 +34,35 @@ export function AjouterCarte() {
       navigate("/login");
       return;
     }
+    getRandomCard();
   }, []);
+
+  const getRandomCard = async () => {
+    try {
+      const response = await fetch(
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/carte/aleatoire/deck/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
+      }
+
+      const data = await response.json(); // Convertir la réponse en JSON
+      const randomCard = data.card; // Convertir la réponse en JSON
+
+      setRandomCard(randomCard); // Stocker la carte dans l'état local
+    } catch (error) {
+      console.error("Erreur :", error.message);
+      alert(`Une erreur est survenue : ${error.message}`);
+    }
+  };
 
   // Etat local pour gérer les données du formulaire
   const [formData, setFormData] = useState({
@@ -78,7 +126,12 @@ export function AjouterCarte() {
 
   return (
     <>
-      <div className="container mt-4">
+      <div>
+        {randomCard ? (
+          <Carte carte={randomCard} cardTitle="Carte Aléatoire" />
+        ) : (
+          <p>chargement...</p>
+        )}
         <form onSubmit={handleSubmit}>
           <h1 className="title">Ajouter une carte</h1>
           <Input

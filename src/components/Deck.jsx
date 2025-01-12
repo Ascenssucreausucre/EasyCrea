@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { useRef } from "react";
 import heart from "/src/assets/img/heart.svg";
@@ -6,7 +6,6 @@ import heart from "/src/assets/img/heart.svg";
 export function Deck({ deck }) {
   const { userData } = useUser();
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     if (!dateString) return ""; // Si la date est vide ou invalide

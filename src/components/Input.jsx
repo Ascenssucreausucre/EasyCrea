@@ -25,6 +25,7 @@ export function Input({
   caractereMax,
   disabled,
 }) {
+  const numberProps = type === "number" ? { min: -15, max: 15 } : {};
   // Calcul de la longueur de l'input
   const length = value ? value.length : 0;
 
@@ -66,6 +67,7 @@ export function Input({
             style={style}
             required={required}
             disabled={disabled}
+            {...numberProps}
             className="form-control"
           />
         )}

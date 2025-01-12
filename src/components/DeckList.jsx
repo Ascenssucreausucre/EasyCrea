@@ -11,7 +11,7 @@ export function DeckList({ infos }) {
           <Deck deck={deck} />
           <div className="card-list">
             {deck.cartes.map((carte) => (
-              <Carte key={carte.id_carte} carte={carte} />
+              <Carte key={carte.id_carte} carte={carte} cardTitle="Ma carte" />
             ))}
           </div>
         </div>

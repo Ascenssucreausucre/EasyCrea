@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { Deck } from "../components/Deck";
 import { NavLink, useLoaderData } from "react-router-dom";
 import { useUser } from "../context/UserContext";
