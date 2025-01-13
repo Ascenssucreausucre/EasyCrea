@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
 import { Carte } from "../components/Carte";

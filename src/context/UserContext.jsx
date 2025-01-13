@@ -24,11 +24,13 @@ export const UserProvider = ({ children }) => {
   const login = (token) => {
     localStorage.setItem("token", token);
     const decoded = jwtDecode(token);
+    localStorage.setItem("user-data", decoded);
     setUserData(decoded);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user-data");
     setUserData(null);
   };
 

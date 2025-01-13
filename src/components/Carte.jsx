@@ -3,11 +3,20 @@ import { Input } from "./Input";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export function Carte({ carte, cardTitle }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
-  const { userData } = useUser(); // Accéder aux données utilisateur
+  const userData = localStorage.getItem("user-data"); // Accéder aux données utilisateur
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userData) {
+      alert("caca");
+      navigate("/login");
+    }
+  });
 
   // État local pour gérer les valeurs modifiables
   const [formData, setFormData] = useState({
