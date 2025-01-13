@@ -80,7 +80,7 @@ export function Input({
       )}
 
       {/* Affichage des messages d'erreur si nécessaire */}
-      {(minError || maxError) && (
+      {(minError || maxError) && !disabled && (
         <p style={{ color: "red", fontSize: "0.85em" }}>
           {minError || maxError}
         </p>

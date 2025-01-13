@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Input } from "./Input";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { useUser } from "../context/UserContext";
 
 export function Carte({ carte, cardTitle }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
-  const userData = jwtDecode(token); // Accéder aux données utilisateur
+  const { userData } = useUser(); // Accéder aux données utilisateur
 
   // État local pour gérer les valeurs modifiables
   const [formData, setFormData] = useState({
@@ -168,7 +168,7 @@ export function Carte({ carte, cardTitle }) {
             <Input
               label="Texte"
               name="valeurs_choix1_texte"
-              type="text"
+              type="textarea"
               placeholder="Texte du choix 1"
               value={formData.valeurs_choix1_texte}
               onChange={handleChange}
@@ -204,7 +204,7 @@ export function Carte({ carte, cardTitle }) {
             <Input
               label="Texte"
               name="valeurs_choix2_texte"
-              type="text"
+              type="textarea"
               placeholder="Texte du choix 2"
               value={formData.valeurs_choix2_texte}
               onChange={handleChange}

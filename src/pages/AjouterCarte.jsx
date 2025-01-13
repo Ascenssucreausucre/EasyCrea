@@ -151,7 +151,7 @@ export function AjouterCarte() {
               <Input
                 label="Texte"
                 name="valeurs_choix1_texte"
-                type="text"
+                type="textarea"
                 placeholder="Texte du choix 1"
                 value={formData.valeurs_choix1_texte}
                 onChange={handleChange}
@@ -183,7 +183,7 @@ export function AjouterCarte() {
               <Input
                 label="Texte"
                 name="valeurs_choix2_texte"
-                type="text"
+                type="textarea"
                 placeholder="Texte du choix 2"
                 value={formData.valeurs_choix2_texte}
                 onChange={handleChange}

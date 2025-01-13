@@ -12,7 +12,7 @@ export function Administrateur() {
   }
 
   return (
-    <div>
+    <div className="admin-dashboard">
       <h1 className="title">Admin Dashboard</h1>
       <p>Affichage des decks et cartes :</p>
       {infos.length > 0 ? (

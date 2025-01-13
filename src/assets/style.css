@@ -259,9 +259,16 @@ nav {
   display: none;
 } */
 
+.admin-dashboard .carte form {
+  width: 20vw;
+}
+.admin-dashboard .carte form input,
+.admin-dashboard .carte form textarea {
+  padding: 5px;
+}
+
 .carte form {
   margin-block: 5px;
-  width: 20vw;
   min-width: 250px;
   margin-inline: auto;
   padding: 10px 20px;

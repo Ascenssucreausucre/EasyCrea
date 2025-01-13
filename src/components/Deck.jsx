@@ -71,7 +71,7 @@ export function Deck({ deck }) {
           </p>
           <p>
             <span>Nombre de cartes : </span>
-            {deck.nb_cartes_ajoutées}/{deck.nb_cartes}
+            {deck.nb_cartes_atm}/{deck.nb_cartes}
           </p>
         </div>
         <div className="deck-stats">
