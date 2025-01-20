@@ -25,7 +25,6 @@ export const UserProvider = ({ children }) => {
     localStorage.setItem("token", token);
     const decoded = jwtDecode(token);
     localStorage.setItem("user-data", JSON.stringify(decoded));
-    console.log(localStorage.getItem("user-data"));
     setUserData(decoded);
   };
 

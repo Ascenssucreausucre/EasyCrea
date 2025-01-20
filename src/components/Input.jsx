@@ -23,9 +23,12 @@ export function Input({
   required = false,
   caractereMin,
   caractereMax,
+  numberMax,
+  numberMin,
   disabled,
 }) {
-  const numberProps = type === "number" ? { min: -15, max: 15 } : {};
+  const numberProps =
+    type === "number" && numberMax && numberMin ? { min: -15, max: 15 } : {};
   // Calcul de la longueur de l'input
   const length = value ? value.length : 0;
 

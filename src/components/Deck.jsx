@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useRef } from "react";
 import heart from "/src/assets/img/heart.svg";
 
-export function Deck({ deck }) {
+export function Deck({ deck, onDelete, deckId }) {
   const userData = JSON.parse(localStorage.getItem("user-data"));
   const token = localStorage.getItem("token");
 
@@ -37,6 +37,7 @@ export function Deck({ deck }) {
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
+      onDelete(deckId);
       handleCloseDialog();
     } catch (error) {
       console.error("Erreur :", error.message);

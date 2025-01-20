@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Input } from "./Input";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
-export function Carte({ carte, cardTitle }) {
+export function Carte({ carte, cardTitle, onDelete, deckId }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
   const userData = JSON.parse(localStorage.getItem("user-data")); // Accéder aux données utilisateur
@@ -78,6 +77,7 @@ export function Carte({ carte, cardTitle }) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
       handleCloseDialog();
+      onDelete(deckId, carte.id_carte);
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
@@ -147,7 +147,7 @@ export function Carte({ carte, cardTitle }) {
       <form>
         {userData && userData.userType === "administrateur" ? (
           carte.id_createur ? (
-            <h2 className="title">Créée par {carte.id_createur}</h2>
+            <h2 className="title">Créée par {carte.createur.nom_createur}</h2>
           ) : (
             <h2 className="title">Carte Admin</h2>
           )
@@ -186,6 +186,8 @@ export function Carte({ carte, cardTitle }) {
                 label="Population"
                 name="valeurs_choix1_population"
                 type="number"
+                numberMin={-15}
+                numberMax={15}
                 placeholder="Population pour le choix 1"
                 value={formData.valeurs_choix1_population}
                 onChange={handleChange}
@@ -196,6 +198,8 @@ export function Carte({ carte, cardTitle }) {
                 label="Finances"
                 name="valeurs_choix1_finances"
                 type="number"
+                numberMin={-15}
+                numberMax={15}
                 placeholder="Finances pour le choix 1"
                 value={formData.valeurs_choix1_finances}
                 onChange={handleChange}
@@ -222,6 +226,8 @@ export function Carte({ carte, cardTitle }) {
                 label="Population"
                 name="valeurs_choix2_population"
                 type="number"
+                numberMin={-15}
+                numberMax={15}
                 placeholder="Population pour le choix 2"
                 value={formData.valeurs_choix2_population}
                 onChange={handleChange}
@@ -232,6 +238,8 @@ export function Carte({ carte, cardTitle }) {
                 label="Finances"
                 name="valeurs_choix2_finances"
                 type="number"
+                numberMin={-15}
+                numberMax={15}
                 placeholder="Finances pour le choix 2"
                 value={formData.valeurs_choix2_finances}
                 onChange={handleChange}

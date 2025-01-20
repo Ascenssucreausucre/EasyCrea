@@ -78,7 +78,7 @@ export function AjouterCarte() {
     valeurs_choix2_texte: "",
     valeurs_choix2_population: "",
     valeurs_choix2_finances: "",
-    deck_id: id, // Le deck_id est passé depuis l'URL
+    id_deck: id, // Le deck_id est passé depuis l'URL
   });
 
   // Fonction pour gérer le changement des inputs du formulaire
@@ -165,6 +165,8 @@ export function AjouterCarte() {
                   label="Population"
                   name="valeurs_choix1_population"
                   type="number"
+                  numberMin={-15}
+                  numberMax={15}
                   placeholder="Population pour le choix 1"
                   value={formData.valeurs_choix1_population}
                   onChange={handleChange}
@@ -174,6 +176,8 @@ export function AjouterCarte() {
                   label="Finances"
                   name="valeurs_choix1_finances"
                   type="number"
+                  numberMin={-15}
+                  numberMax={15}
                   placeholder="Finances pour le choix 1"
                   value={formData.valeurs_choix1_finances}
                   onChange={handleChange}
@@ -197,6 +201,8 @@ export function AjouterCarte() {
                   label="Population"
                   name="valeurs_choix2_population"
                   type="number"
+                  numberMin={-15}
+                  numberMax={15}
                   placeholder="Population pour le choix 2"
                   value={formData.valeurs_choix2_population}
                   onChange={handleChange}
@@ -206,6 +212,8 @@ export function AjouterCarte() {
                   label="Finances"
                   name="valeurs_choix2_finances"
                   type="number"
+                  numberMin={-15}
+                  numberMax={15}
                   placeholder="Finances pour le choix 2"
                   value={formData.valeurs_choix2_finances}
                   onChange={handleChange}

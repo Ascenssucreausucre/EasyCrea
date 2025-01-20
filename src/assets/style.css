@@ -79,11 +79,6 @@ html {
   font-size: var(--small-font-size);
   font-weight: 700;
   cursor: pointer;
-  opacity: 1;
-  transition: opacity 0.2s ease-out;
-  @starting-style {
-    opacity: 0;
-  }
 }
 .nav-link {
   font-size: var(--medium-font-size);

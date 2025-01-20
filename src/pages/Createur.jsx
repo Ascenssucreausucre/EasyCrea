@@ -1,12 +1,13 @@
+import { useParams } from "react-router-dom";
 import { DeckList } from "../components/DeckList";
 import { useUser } from "../context/UserContext"; // Utilisation du hook personnalisé
 import { useState, useEffect } from "react";
 
 export function Createur() {
   const { userData } = useUser(); // Accéder aux données utilisateur
+  const userId = useParams().id;
 
   async function getUserCards() {
-    const userId = userData?.id_createur; // Vérifie si userData existe
     if (!userId) {
       return []; // Si userId est undefined, retourne un tableau vide
     }
@@ -31,23 +32,24 @@ export function Createur() {
   const [infos, setInfos] = useState([]); // État pour stocker les données récupérées
 
   useEffect(() => {
-    if (!userData) return; // Attend que userData soit défini
+    if (!userId) return;
 
     async function fetchData() {
       const data = await getUserCards();
       setInfos(data); // Mise à jour de l'état avec les données récupérées
     }
     fetchData();
-  }, [userData]); // Déclenche seulement lorsque userData change
+  }, [userId]); // Déclenche seulement lorsque userData change
 
   if (!userData) {
     return <div>Chargement des données utilisateur...</div>; // Afficher un message ou rediriger si nécessaire
   }
+  console.log(infos);
 
   return (
     <div>
       <h1 className="title">Profil du créateur</h1>
-      <p>Nom du créateur: {userData.nom_createur}</p>
+      <p>Profil de {}</p>
       {infos.length > 0 ? (
         <DeckList infos={infos} />
       ) : (

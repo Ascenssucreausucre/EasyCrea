@@ -20,6 +20,7 @@ export function AjouterDeck() {
   // Etat local pour gérer les données du formulaire
   const [formData, setFormData] = useState({
     titre_deck: "",
+    date_debut: "",
     date_fin_deck: "",
     nb_cartes: "",
     id_administrateur: userData.id_administrateur,
@@ -37,6 +38,8 @@ export function AjouterDeck() {
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(formData);
 
     try {
       const response = await fetch(
@@ -83,6 +86,15 @@ export function AjouterDeck() {
             type="text"
             placeholder="Titre du deck"
             value={formData.titre_deck}
+            onChange={handleChange}
+            required
+          />
+          <Input
+            label="Date de début (YYYY-MM-DD)"
+            name="date_debut"
+            type="date"
+            placeholder="Date de début"
+            value={formData.date_debut}
             onChange={handleChange}
             required
           />
