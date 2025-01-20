@@ -1,32 +1,28 @@
-import { Deck } from "../components/Deck";
-import { NavLink, useLoaderData } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import Deckouverte from "/src/assets/img/Deckouverte.jpg";
 
 export function Home() {
-  const deckList = useLoaderData().decks;
-  const { userData } = useUser(); // Accéder aux données utilisateur
-
   return (
     <>
-      {/* <SearchBar /> */}
-      <h1 className="title">Liste des Decks</h1>
-      {deckList.length > 0 ? (
-        <div className="home-deck-list">
-          {deckList.map((deck) => (
-            <Deck
-              key={deck.id_deck} // Ajout de la prop `key` unique
-              deck={deck}
-            />
-          ))}
+      <h1 className="home-title">Easycrea</h1>
+      <div className="home-page">
+        <h2>
+          Bienvenue sur la plateforme de création de deck communautaire de
+          Deckouverte.
+        </h2>
+        <div className="img-text">
+          <img src={Deckouverte} alt="" />
+          <div>
+            <p>
+              Créez des jeux totalement loufoques !!!! Deckouverte est une
+              application dans laquelle vous jouez des decks qui racontent tous
+              une histoire différente !
+            </p>
+            <a href="" className="button">
+              Télécharger l'application !
+            </a>
+          </div>
         </div>
-      ) : (
-        <p>Chargement des decks...</p>
-      )}
-      {userData && userData.userType === "administrateur" ? (
-        <NavLink className="button add-button" to={"/ajouter-deck"}>
-          Ajouter un deck
-        </NavLink>
-      ) : null}
+      </div>
     </>
   );
 }

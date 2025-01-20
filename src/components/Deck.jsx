@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { useUser } from "../context/UserContext";
 import { useRef } from "react";
 import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck }) {
-  const { userData } = useUser();
+  const userData = JSON.parse(localStorage.getItem("user-data"));
   const token = localStorage.getItem("token");
 
   const formatDate = (dateString) => {
@@ -38,8 +37,7 @@ export function Deck({ deck }) {
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
-
-      alert("Deck supprimé avec succès !");
+      handleCloseDialog();
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);

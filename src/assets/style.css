@@ -38,6 +38,7 @@
   --medium-font-size: clamp(1rem, 1.5vw, 1.2rem);
   --big-font-size: clamp(1.2rem, 1.8vw, 1.6rem);
   --title-font-size: clamp(1.2rem, 2vw, 1.8rem);
+  --main-title-font-size: clamp(3rem, 5vw, 5rem);
 
   --padding-inline-btn: clamp(5px, 2vw, 15px);
   --padding-block-btn: clamp(5px, 1vw, 10px);
@@ -121,6 +122,57 @@ nav {
   align-items: center;
   width: 50%;
 }
+
+/* HOME */
+/* HOME */
+
+.home-page {
+  text-align: center;
+}
+
+.home-title {
+  position: relative;
+  font-family: "Lilita One", serif;
+  color: var(--primary-color);
+  font-size: var(--main-title-font-size);
+  text-align: center;
+  margin-block: 50px;
+}
+
+.img-text {
+  margin-block: 100px;
+  display: flex;
+  padding-inline: 15vw;
+}
+.img-text img {
+  width: 30%;
+  border-radius: 15px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.425);
+  margin-inline: 15px;
+}
+.img-text div {
+  padding-block: 20%;
+  text-align: left;
+}
+.img-text p {
+  margin-bottom: 20px;
+}
+.footer,
+.footer a {
+  background-color: var(--secondary-color);
+  height: 200px;
+  color: white;
+}
+/* .home-title::after {
+  position: absolute;
+  content: "Easycrea";
+  left: calc(50% - 170px);
+  bottom: -10px;
+  color: transparent;
+  z-index: -2;
+  text-shadow: 0 0 2px var(--secondary-color);
+} */
+
 /* DECKLIST */
 /* DECKLIST */
 

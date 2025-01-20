@@ -8,12 +8,11 @@ import { useNavigate } from "react-router-dom";
 export function Carte({ carte, cardTitle }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
-  const userData = localStorage.getItem("user-data"); // Accéder aux données utilisateur
+  const userData = JSON.parse(localStorage.getItem("user-data")); // Accéder aux données utilisateur
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!userData) {
-      alert("caca");
       navigate("/login");
     }
   });
@@ -78,8 +77,6 @@ export function Carte({ carte, cardTitle }) {
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
-
-      alert("Carte supprimée avec succès !");
       handleCloseDialog();
     } catch (error) {
       console.error("Erreur :", error.message);
@@ -148,7 +145,7 @@ export function Carte({ carte, cardTitle }) {
   return (
     <div className="carte">
       <form>
-        {userData.userType === "administrateur" ? (
+        {userData && userData.userType === "administrateur" ? (
           carte.id_createur ? (
             <h2 className="title">Créée par {carte.id_createur}</h2>
           ) : (
@@ -244,7 +241,7 @@ export function Carte({ carte, cardTitle }) {
             </div>
           </div>
         </div>
-        {userData.userType === "administrateur" ? (
+        {userData && userData.userType === "administrateur" ? (
           <div className="button-container">
             {isEditable ? (
               <>

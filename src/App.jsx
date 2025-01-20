@@ -1,3 +1,4 @@
+import { DecksPage } from "./pages/DecksPage";
 import { Home } from "./pages/Home";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Login } from "./pages/Login";
@@ -7,6 +8,7 @@ import { AjouterCarte } from "./pages/AjouterCarte";
 import { NavBar } from "./components/NavBar";
 import { Administrateur } from "./pages/Administrateur";
 import { AjouterDeck } from "./pages/AjouterDeck";
+import { Footer } from "./components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "/decks",
+        element: <DecksPage />,
         loader: () =>
           fetch(`https://srochedix.alwaysdata.net/ReignApi/api/v1/decks`),
       },
@@ -60,6 +66,7 @@ function Root() {
       <main>
         <Outlet />
       </main>
+      {/* <Footer /> */}
     </>
   );
 }

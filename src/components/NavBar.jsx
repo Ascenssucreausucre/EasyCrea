@@ -26,6 +26,13 @@ export function NavBar() {
       {/* Menu */}
       <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
         <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
+          Home
+        </NavLink>
+        <NavLink
+          to="/decks"
+          className="nav-link"
+          onClick={() => setMenuOpen(false)}
+        >
           Decks
         </NavLink>
 
