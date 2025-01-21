@@ -140,7 +140,8 @@ nav {
   padding-inline: 15vw;
 }
 .img-text img {
-  width: 30%;
+  width: auto;
+  height: 400px;
   border-radius: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.425);
   margin-inline: 15px;

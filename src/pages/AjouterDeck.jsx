@@ -39,8 +39,6 @@ export function AjouterDeck() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
-
     try {
       const response = await fetch(
         "https://srochedix.alwaysdata.net/ReignApi/api/v1/deck", // URL de l'API pour créer un deck
@@ -72,6 +70,7 @@ export function AjouterDeck() {
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
+      console.log(error);
     }
   };
 

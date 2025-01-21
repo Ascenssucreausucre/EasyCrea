@@ -1,7 +1,7 @@
 import { Deck } from "./Deck";
 import { Carte } from "./Carte";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function DeckList({ infos }) {
   const [decks, setDecks] = useState(infos); // Utilisation de l'état local pour gérer les decks
@@ -27,21 +27,40 @@ export function DeckList({ infos }) {
 
   return (
     <div className="deck-list">
-      {decks.map((deck) => (
-        <div key={deck.id_deck} className="deck-card">
-          <Deck deck={deck} onDelete={handleDeleteDeck} deckId={deck.id_deck} />
-          <div className="card-list">
-            {deck.cartes.map((carte) => (
-              <Carte
-                key={carte.id_carte}
-                carte={carte}
-                deckId={deck.id_deck}
-                onDelete={handleDeleteCarte} // Passe la fonction de suppression au composant Carte
-              />
-            ))}
-          </div>
-        </div>
-      ))}
+      <AnimatePresence> {/* Entoure les decks avec AnimatePresence */}
+        {decks.map((deck) => (
+          <motion.div
+            key={deck.id_deck}
+            initial={{ opacity: 1 }} // L'état initial du deck est visible
+            animate={{ opacity: 1 }}  // Pendant l'animation, le deck reste visible
+            exit={{ opacity: 0, x: 100 }}    // Lors de la suppression, l'opacité devient 0
+            transition={{ duration: 0.3 }} // Durée de l'animation de disparition
+          >
+            <div className="deck-card">
+              <Deck deck={deck} onDelete={handleDeleteDeck} deckId={deck.id_deck} />
+              <div className="card-list">
+                <AnimatePresence> {/* Entoure les cartes avec AnimatePresence pour la suppression */}
+                  {deck.cartes.map((carte) => (
+                    <motion.div
+                      key={carte.id_carte}
+                      initial={{ opacity: 1 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    >
+                      <Carte
+                        carte={carte}
+                        deckId={deck.id_deck}
+                        onDelete={handleDeleteCarte}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
