@@ -16,7 +16,7 @@ export function Administrateur() {
       <h1 className="title">Admin Dashboard</h1>
       <p>Affichage des decks et cartes :</p>
       {infos.length > 0 ? (
-        <DeckList infos={infos} />
+        <DeckList infos={infos} dashboard={true} />
       ) : (
         <p>Chargement des decks...</p>
       )}

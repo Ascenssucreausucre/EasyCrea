@@ -1,16 +1,36 @@
 import { NavLink } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck, onDelete, deckId }) {
   const userData = JSON.parse(localStorage.getItem("user-data"));
   const token = localStorage.getItem("token");
+  const [deckData, setDeckData] = useState(deck);
 
   const formatDate = (dateString) => {
     if (!dateString) return ""; // Si la date est vide ou invalide
     return dateString.split(" ")[0]; // Garde uniquement "YYYY-MM-DD"
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deck.id_deck}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
+          },
+          body: JSON.stringify(deckData),
+        }
+      );
+    } catch (error) {
+      console.error("Erreur :", error.message);
+      alert(`Une erreur est survenue : ${error.message}`);
+    }
+  };
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
@@ -45,6 +65,11 @@ export function Deck({ deck, onDelete, deckId }) {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+  };
+  console.log(deck);
+
   const dialogRef = useRef(null); // Référence au <dialog>
 
   const handleOpenDialog = () => {
@@ -54,7 +79,6 @@ export function Deck({ deck, onDelete, deckId }) {
   const handleCloseDialog = () => {
     dialogRef.current.close(); // Ferme le <dialog>
   };
-
   return (
     <div className="deck" key={deck.id_deck}>
       <div className="deck-content">
@@ -80,6 +104,30 @@ export function Deck({ deck, onDelete, deckId }) {
           <p className="nb-likes">
             {deck.nb_jaime || 0} <img className="like" src={heart} alt="" />
           </p>
+          {userData.userType === "administrateur" ? (
+            <div className="status">
+              <select
+                name="status"
+                className="form-select"
+                value={deck.status}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Status
+                </option>
+                <option value="Planned">Planned</option>
+                <option value="WIP">WIP</option>
+                <option value="Pending">Pending</option>
+                <option value="Playable">Playable</option>
+              </select>
+              <button className="button smaller-button" onClick={handleUpdate}>
+                Submit
+              </button>
+            </div>
+          ) : (
+            <p className="deck-status">{deck.status}</p>
+          )}
         </div>
       </div>
       <div className="button-container">

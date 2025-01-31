@@ -15,7 +15,8 @@
   outline: solid var(--primary-color) 2px;
   border-radius: 5px;
 }
-.title {
+.title,
+.title-link {
   font-family: "Lilita One", serif;
   font-weight: 400;
   font-style: normal;
@@ -294,6 +295,15 @@ nav {
   font-size: var(--medium-font-size);
   text-align: center;
 }
+.status {
+  text-align: center;
+  width: fit-content;
+}
+.status .smaller-button {
+  margin-block-start: 5px;
+  font-size: var(--small-font-size);
+  padding: 5px 10px;
+}
 
 /* CARTE */
 /* CARTE */
@@ -354,6 +364,10 @@ nav {
   background-color: rgba(0, 0, 0, 0.253);
   position: fixed;
   pointer-events: none;
+}
+
+.title-link {
+  color: var(--primary-color);
 }
 
 /* FORM  */

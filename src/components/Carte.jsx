@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Input } from "./Input";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-export function Carte({ carte, cardTitle, onDelete, deckId }) {
+export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
   const userData = JSON.parse(localStorage.getItem("user-data")); // Accéder aux données utilisateur
@@ -145,9 +145,17 @@ export function Carte({ carte, cardTitle, onDelete, deckId }) {
   return (
     <div className="carte">
       <form>
-        {userData && userData.userType === "administrateur" ? (
+        {dashboard ? (
           carte.id_createur ? (
-            <h2 className="title">Créée par {carte.createur.nom_createur}</h2>
+            <h2 className="title">
+              Créée par{" "}
+              <NavLink
+                to={`/createur/${carte.id_createur}`}
+                className="title-link"
+              >
+                {carte.createur.nom_createur}
+              </NavLink>
+            </h2>
           ) : (
             <h2 className="title">Carte Admin</h2>
           )

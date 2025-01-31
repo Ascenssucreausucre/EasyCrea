@@ -32,24 +32,16 @@ export function Createur() {
   const [infos, setInfos] = useState([]); // État pour stocker les données récupérées
 
   useEffect(() => {
-    if (!userId) return;
-
     async function fetchData() {
       const data = await getUserCards();
       setInfos(data); // Mise à jour de l'état avec les données récupérées
     }
     fetchData();
-  }, [userId]); // Déclenche seulement lorsque userData change
-
-  if (!userData) {
-    return <div>Chargement des données utilisateur...</div>; // Afficher un message ou rediriger si nécessaire
-  }
-  console.log(infos);
+  }, []); // Déclenche seulement lorsque userData change
 
   return (
     <div>
       <h1 className="title">Profil du créateur</h1>
-      <p>Profil de {}</p>
       {infos.length > 0 ? (
         <DeckList infos={infos} />
       ) : (
