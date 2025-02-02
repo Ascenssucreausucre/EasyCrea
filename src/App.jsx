@@ -1,11 +1,6 @@
 import { DecksPage } from "./pages/DecksPage";
 import { Home } from "./pages/Home";
-import {
-  createBrowserRouter,
-  Outlet,
-  RouterProvider,
-  useLocation,
-} from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
@@ -22,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />, // La homepage où le bouton d'installation apparaîtra
+        element: <Home />, // La homepage où la bannière s'affichera
       },
       {
         path: "/decks",
@@ -76,9 +71,6 @@ function Root() {
 }
 
 function App() {
-  const [installPrompt, setInstallPrompt] = useState(null);
-  const [isInstalled, setIsInstalled] = useState(false);
-
   // Enregistrer le service worker
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -93,53 +85,16 @@ function App() {
     }
   }, []);
 
-  // Écouter l'événement 'beforeinstallprompt'
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (event) => {
-      event.preventDefault(); // Empêche l'affichage automatique de la bannière
-      setInstallPrompt(event); // Met à jour l'état avec l'événement
-    };
-
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener(
-        "beforeinstallprompt",
-        handleBeforeInstallPrompt
-      );
-    };
-  }, []);
-
-  // Affichage conditionnel du bouton d'installation
-  const handleInstallClick = () => {
-    if (installPrompt) {
-      installPrompt.prompt(); // Déclenche la boîte de dialogue d’installation
-      installPrompt.userChoice.then((choice) => {
-        if (choice.outcome === "accepted") {
-          console.log("L'utilisateur a installé l'application !");
-        } else {
-          console.log("L'utilisateur a refusé l'installation.");
-        }
-        setInstallPrompt(null);
-      });
-    }
-  };
+  // Suivi de l'état de l'installation (optionnel si tu veux vérifier que l'application est déjà installée)
+  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
     if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true); // Vérifie si l'application est déjà installée
+      setIsInstalled(true); // Vérifie si l'application est installée
     }
   }, []);
 
-  return (
-    <RouterProvider router={router}>
-      {/* Si l'app n'est pas encore installée et qu'on est sur la homepage, afficher le bouton */}
-      <Home
-        installPrompt={installPrompt}
-        handleInstallClick={handleInstallClick}
-      />
-    </RouterProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
