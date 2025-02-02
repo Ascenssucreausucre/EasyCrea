@@ -75,7 +75,7 @@ function App() {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register("/serviceWorker.js")
+        .register("/service-worker.js")
         .then((registration) => {
           console.log("Service Worker enregistré avec succès :", registration);
         })
@@ -89,14 +89,9 @@ function App() {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // if (window.matchMedia("(display-mode: standalone)").matches) {
-    //   setIsInstalled(true); // Vérifie si l'application est installée
-    // }
-    window.addEventListener("beforeinstallprompt", (event) => {
-      console.log("beforeinstallprompt fired!");
-      event.preventDefault(); // empêche l'install automatique
-      event.prompt(); // force l'affichage de la bannière
-    });
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setIsInstalled(true); // Vérifie si l'application est installée
+    }
   }, []);
 
   return <RouterProvider router={router} />;
