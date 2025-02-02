@@ -8,7 +8,6 @@ import { AjouterCarte } from "./pages/AjouterCarte";
 import { NavBar } from "./components/NavBar";
 import { Administrateur } from "./pages/Administrateur";
 import { AjouterDeck } from "./pages/AjouterDeck";
-import { Footer } from "./components/Footer";
 
 const router = createBrowserRouter([
   {

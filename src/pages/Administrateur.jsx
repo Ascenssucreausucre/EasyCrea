@@ -5,6 +5,14 @@ import { useUser } from "../context/UserContext"; // Utilisation du hook personn
 export function Administrateur() {
   const { userData } = useUser(); // Accéder aux données utilisateur
 
+  if (userData.userType !== "administrateur") {
+    return (
+      <div>
+        <p>Vous n'avez pas le droit d'accéder à cette page.</p>
+      </div>
+    );
+  }
+
   const infos = useLoaderData().deck;
 
   if (!userData) {

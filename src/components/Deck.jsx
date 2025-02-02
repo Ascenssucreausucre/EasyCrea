@@ -113,7 +113,7 @@ export function Deck({ deck, onDelete, deckId }) {
           <p className="nb-likes">
             {deckData.nb_jaime || 0} <img className="like" src={heart} alt="" />
           </p>
-          {userData.userType === "administrateur" ? (
+          {userData && userData.userType === "administrateur" ? (
             <div className="status">
               <select
                 name="status"
