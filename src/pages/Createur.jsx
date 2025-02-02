@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
 import { DeckList } from "../components/DeckList";
-import { useUser } from "../context/UserContext"; // Utilisation du hook personnalisé
 import { useState, useEffect } from "react";
 
 export function Createur() {
-  const { userData } = useUser(); // Accéder aux données utilisateur
   const userId = useParams().id;
+  const [infos, setInfos] = useState([]);
 
   async function getUserCards() {
     if (!userId) {
@@ -29,8 +28,6 @@ export function Createur() {
     }
   }
 
-  const [infos, setInfos] = useState([]); // État pour stocker les données récupérées
-
   useEffect(() => {
     async function fetchData() {
       const data = await getUserCards();
@@ -39,13 +36,18 @@ export function Createur() {
     fetchData();
   }, []); // Déclenche seulement lorsque userData change
 
+  console.log(infos);
+
   return (
     <div>
-      <h1 className="title">Profil du créateur</h1>
+      <h1 className="title">
+        Profil de{" "}
+        {infos.length > 0 ? infos[0].cartes[0].createur.nom_createur : null}
+      </h1>
       {infos.length > 0 ? (
         <DeckList infos={infos} />
       ) : (
-        <p>Chargement des decks...</p>
+        <p>Cet utilisateur n'a participé à aucun deck.</p>
       )}
     </div>
   );

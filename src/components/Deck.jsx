@@ -16,7 +16,7 @@ export function Deck({ deck, onDelete, deckId }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deck.id_deck}`,
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}`,
         {
           method: "PATCH",
           headers: {
@@ -26,6 +26,11 @@ export function Deck({ deck, onDelete, deckId }) {
           body: JSON.stringify(deckData),
         }
       );
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Erreur inconnue");
+      }
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
@@ -35,7 +40,7 @@ export function Deck({ deck, onDelete, deckId }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deck.id_deck}`, // URL de l'API pour créer un deck
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}`, // URL de l'API pour créer un deck
         {
           method: "DELETE",
           headers: {
@@ -67,8 +72,12 @@ export function Deck({ deck, onDelete, deckId }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setDeckData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log(deckData.status);
   };
-  console.log(deck);
 
   const dialogRef = useRef(null); // Référence au <dialog>
 
@@ -80,36 +89,36 @@ export function Deck({ deck, onDelete, deckId }) {
     dialogRef.current.close(); // Ferme le <dialog>
   };
   return (
-    <div className="deck" key={deck.id_deck}>
+    <div className="deck" key={deckData.id_deck}>
       <div className="deck-content">
         <div className="deck-text">
-          <h3 className="goofy">{deck.titre_deck}</h3>
+          <h3 className="goofy">{deckData.titre_deck}</h3>
           <p>
             <span>Date de début : </span>
-            {formatDate(deck.date_debut)}
+            {formatDate(deckData.date_debut)}
           </p>
           <p>
             <span>Date de fin : </span>
-            {formatDate(deck.date_fin_deck)}
+            {formatDate(deckData.date_fin_deck)}
           </p>
           <p>
             <span>Nombre de cartes : </span>
-            {deck.nb_cartes_atm}/{deck.nb_cartes}
+            {deckData.nb_cartes_atm}/{deck.nb_cartes}
           </p>
         </div>
         <div className="deck-stats">
           <div className="nb-carte">
-            <p>{deck.nb_cartes}</p>
+            <p>{deckData.nb_cartes}</p>
           </div>
           <p className="nb-likes">
-            {deck.nb_jaime || 0} <img className="like" src={heart} alt="" />
+            {deckData.nb_jaime || 0} <img className="like" src={heart} alt="" />
           </p>
           {userData.userType === "administrateur" ? (
             <div className="status">
               <select
                 name="status"
                 className="form-select"
-                value={deck.status}
+                value={deckData.status}
                 onChange={handleChange}
                 required
               >
@@ -126,12 +135,12 @@ export function Deck({ deck, onDelete, deckId }) {
               </button>
             </div>
           ) : (
-            <p className="deck-status">{deck.status}</p>
+            <p className="deck-status">{deckData.status}</p>
           )}
         </div>
       </div>
       <div className="button-container">
-        <NavLink to={`/deck/ajouter/${deck.id_deck}`} className="link">
+        <NavLink to={`/deck/ajouter/${deckData.id_deck}`} className="link">
           Ajouter une carte
         </NavLink>
         {userData && userData.userType === "administrateur" ? (
