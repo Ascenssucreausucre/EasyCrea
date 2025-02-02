@@ -90,7 +90,7 @@ function App() {
 
   useEffect(() => {
     if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true); // Vérifie si l'application est installée
+      setIsInstalled(true);
     }
   }, []);
 

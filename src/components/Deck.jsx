@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck, onDelete, deckId }) {
   const userData = JSON.parse(localStorage.getItem("user-data"));
   const token = localStorage.getItem("token");
   const [deckData, setDeckData] = useState(deck);
+  const [showFeedback, setShowFeedback] = useState(false); // État pour contrôler le feedback
 
   const formatDate = (dateString) => {
     if (!dateString) return ""; // Si la date est vide ou invalide
@@ -16,14 +18,16 @@ export function Deck({ deck, onDelete, deckId }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}`,
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}/status`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
           },
-          body: JSON.stringify(deckData),
+          body: JSON.stringify({
+            status: deckData.status, // Mettre deckData.status dans un objet avec la clé "status"
+          }),
         }
       );
 
@@ -31,11 +35,20 @@ export function Deck({ deck, onDelete, deckId }) {
       if (!response.ok) {
         throw new Error(data.error || "Erreur inconnue");
       }
+
+      // Afficher le feedback après la mise à jour du statut
+      setShowFeedback(true);
+
+      // Cacher le feedback après 3 secondes
+      setTimeout(() => {
+        setShowFeedback(false);
+      }, 3000);
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
     }
   };
+
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
@@ -87,80 +100,98 @@ export function Deck({ deck, onDelete, deckId }) {
   const handleCloseDialog = () => {
     dialogRef.current.close(); // Ferme le <dialog>
   };
+
   return (
-    <div className="deck" key={deckData.id_deck}>
-      <div className="deck-content">
-        <div className="deck-text">
-          <h3 className="goofy">{deckData.titre_deck}</h3>
-          <p>
-            <span>Date de début : </span>
-            {formatDate(deckData.date_debut)}
-          </p>
-          <p>
-            <span>Date de fin : </span>
-            {formatDate(deckData.date_fin_deck)}
-          </p>
-          <p>
-            <span>Nombre de cartes : </span>
-            {deckData.nb_cartes_atm}/{deck.nb_cartes}
-          </p>
-        </div>
-        <div className="deck-stats">
-          <div className="nb-carte">
-            <p>{deckData.nb_cartes}</p>
+    <>
+      <div className="deck" key={deckData.id_deck}>
+        <div className="deck-content">
+          <div className="deck-text">
+            <h3 className="goofy">{deckData.titre_deck}</h3>
+            <p>
+              <span>Date de début : </span>
+              {formatDate(deckData.date_debut)}
+            </p>
+            <p>
+              <span>Date de fin : </span>
+              {formatDate(deckData.date_fin_deck)}
+            </p>
+            <p>
+              <span>Nombre de cartes : </span>
+              {deckData.nb_cartes_atm}/{deck.nb_cartes}
+            </p>
           </div>
-          <p className="nb-likes">
-            {deckData.nb_jaime || 0} <img className="like" src={heart} alt="" />
-          </p>
-          {userData && userData.userType === "administrateur" ? (
-            <div className="status">
-              <select
-                name="status"
-                className="form-select"
-                value={deckData.status}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled>
-                  Status
-                </option>
-                <option value="Planned">Planned</option>
-                <option value="WIP">WIP</option>
-                <option value="Pending">Pending</option>
-                <option value="Playable">Playable</option>
-              </select>
-              <button className="button smaller-button" onClick={handleUpdate}>
-                Submit
-              </button>
+          <div className="deck-stats">
+            <div className="nb-carte">
+              <p>{deckData.nb_cartes}</p>
             </div>
-          ) : (
-            <p className="deck-status">{deckData.status}</p>
-          )}
+            <p className="nb-likes">
+              {deckData.nb_jaime || 0}{" "}
+              <img className="like" src={heart} alt="" />
+            </p>
+            {userData && userData.userType === "administrateur" ? (
+              <div className="status">
+                <select
+                  name="status"
+                  className="form-select"
+                  value={deckData.status}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Status
+                  </option>
+                  <option value="Planned">Planned</option>
+                  <option value="WIP">WIP</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Playable">Playable</option>
+                </select>
+                <button
+                  className="button smaller-button"
+                  onClick={handleUpdate}
+                >
+                  Submit
+                </button>
+              </div>
+            ) : (
+              <p className="deck-status">{deckData.status}</p>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="button-container">
-        <NavLink to={`/deck/ajouter/${deckData.id_deck}`} className="link">
-          Ajouter une carte
-        </NavLink>
-        {userData && userData.userType === "administrateur" ? (
-          <a className="link delete-button" onClick={handleOpenDialog}>
-            Supprimer le deck
-          </a>
-        ) : null}
-      </div>
-      <dialog className="verif" ref={dialogRef}>
-        <p>
-          Êtes vous sûr de supprimer ce deck ? Cette action est irreversible.
-        </p>
         <div className="button-container">
-          <a className="link delete-button" onClick={handleDelete}>
-            Supprimer le deck
-          </a>
-          <a className="link" onClick={handleCloseDialog}>
-            Annuler
-          </a>
+          <NavLink to={`/deck/ajouter/${deckData.id_deck}`} className="link">
+            Ajouter une carte
+          </NavLink>
+          {userData && userData.userType === "administrateur" ? (
+            <a className="link delete-button" onClick={handleOpenDialog}>
+              Supprimer le deck
+            </a>
+          ) : null}
         </div>
-      </dialog>
-    </div>
+        <dialog className="verif" ref={dialogRef}>
+          <p>
+            Êtes vous sûr de supprimer ce deck ? Cette action est irreversible.
+          </p>
+          <div className="button-container">
+            <a className="link delete-button" onClick={handleDelete}>
+              Supprimer le deck
+            </a>
+            <a className="link" onClick={handleCloseDialog}>
+              Annuler
+            </a>
+          </div>
+        </dialog>
+      </div>
+      {showFeedback && (
+        <motion.div
+          className="status-feedback"
+          initial={{ opacity: 0, y: 20 }} // Initial position (invisible, lower)
+          animate={{ opacity: 1, y: 0 }} // Final position (visible, centered)
+          exit={{ opacity: 0, y: 20 }} // Exit position (invisible, lower)
+          transition={{ duration: 0.2 }} // Transition duration
+        >
+          <p>Status mis à jour avec succès !</p>
+        </motion.div>
+      )}
+    </>
   );
 }

@@ -126,7 +126,7 @@ export function AjouterCarte() {
     } catch (error) {
       console.error("Erreur :", error.message);
       alert(`Une erreur est survenue : ${error.message}`);
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -223,7 +223,7 @@ export function AjouterCarte() {
               </div>
             </div>
           </div>
-            <p>Choix et finances doivent être compris entre 15 et -15</p>
+          <p>Choix et finances doivent être compris entre 15 et -15</p>
           <div className="button-container">
             <button type="submit" className="button">
               Ajouter la carte
