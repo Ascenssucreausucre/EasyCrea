@@ -89,9 +89,14 @@ function App() {
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true); // Vérifie si l'application est installée
-    }
+    // if (window.matchMedia("(display-mode: standalone)").matches) {
+    //   setIsInstalled(true); // Vérifie si l'application est installée
+    // }
+    window.addEventListener("beforeinstallprompt", (event) => {
+      console.log("beforeinstallprompt fired!");
+      event.preventDefault(); // empêche l'install automatique
+      event.prompt(); // force l'affichage de la bannière
+    });
   }, []);
 
   return <RouterProvider router={router} />;
