@@ -1,4 +1,4 @@
-const CACHE_NAME = "v1";
+const CACHE_NAME = "easycrea-app-cache-v1";
 const urlsToCache = ["/", "/index.html"];
 
 // Installation du Service Worker

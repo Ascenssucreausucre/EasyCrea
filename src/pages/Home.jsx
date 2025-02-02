@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import Deckouverte from "/src/assets/img/Deckouverte.jpg";
 
-export function Home() {
+export function Home({ installPrompt, handleInstallClick }) {
   return (
     <>
       <h1 className="home-title">Easycrea</h1>
@@ -9,8 +10,13 @@ export function Home() {
           Bienvenue sur la plateforme de création de deck communautaire de
           Deckouverte.
         </h2>
+        {installPrompt && (
+          <button className="button" onClick={handleInstallClick}>
+            Télécharge l'application !
+          </button>
+        )}
         <div className="img-text">
-          <img src={Deckouverte} alt="" />
+          <img src={Deckouverte} alt="Deckouverte" />
           <div>
             <p>
               Créez des jeux totalement loufoques !!!! Deckouverte est une

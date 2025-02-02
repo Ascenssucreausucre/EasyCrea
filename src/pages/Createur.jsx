@@ -36,8 +36,6 @@ export function Createur() {
     fetchData();
   }, []); // Déclenche seulement lorsque userData change
 
-  console.log(infos);
-
   return (
     <div>
       <h1 className="title">

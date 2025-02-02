@@ -76,7 +76,6 @@ export function Deck({ deck, onDelete, deckId }) {
       ...prevData,
       [name]: value,
     }));
-    console.log(deckData.status);
   };
 
   const dialogRef = useRef(null); // Référence au <dialog>

@@ -64,7 +64,6 @@ export function AjouterDeck() {
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
-      console.log(data.deck);
       alert("Deck créé avec succès, ajoutez-lui sa première carte !");
       navigate(`/deck/ajouter/${data.deck.id_deck}`);
     } catch (error) {
