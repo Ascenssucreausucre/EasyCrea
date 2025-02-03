@@ -19,8 +19,6 @@ export function DecksPage() {
     navigate("/ajouter-deck");
   }
 
-  console.log(decks);
-
   if (decks.WIP)
     return (
       <>

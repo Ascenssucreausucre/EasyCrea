@@ -156,7 +156,7 @@ export function Deck({ deck, onDelete, deckId }) {
         </div>
         <div
           className={
-            userData.userType === "administrateur"
+            userData && userData.userType === "administrateur"
               ? "button-container"
               : "reverse button-container"
           }
