@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom";
+import { useFeedback } from "../context/FeedbackContext";
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 import heart from "/src/assets/img/heart.svg";
 
 export function Deck({ deck, onDelete, deckId }) {
   const userData = JSON.parse(localStorage.getItem("user-data"));
   const token = localStorage.getItem("token");
+  const { showFeedback } = useFeedback();
   const [deckData, setDeckData] = useState(deck);
-  const [showFeedback, setShowFeedback] = useState(false); // État pour contrôler le feedback
+  const [feedback, setFeedback] = useState(null); // Etat pour gérer le feedback (type et message)
 
   const formatDate = (dateString) => {
     if (!dateString) return ""; // Si la date est vide ou invalide
@@ -36,16 +37,11 @@ export function Deck({ deck, onDelete, deckId }) {
         throw new Error(data.error || "Erreur inconnue");
       }
 
-      // Afficher le feedback après la mise à jour du statut
-      setShowFeedback(true);
+      showFeedback("success", "Status changé avec succès !");
 
-      // Cacher le feedback après 3 secondes
-      setTimeout(() => {
-        setShowFeedback(false);
-      }, 3000);
     } catch (error) {
       console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
 
@@ -53,35 +49,36 @@ export function Deck({ deck, onDelete, deckId }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}`, // URL de l'API pour créer un deck
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      // Vérifier si la réponse est correcte (statut 200 ou 201)
+  
       if (!response.ok) {
         throw new Error("Erreur de requête. Statut HTTP: " + response.status);
       }
-
-      // Essayer de lire la réponse en JSON
-      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
+  
+      const responseText = await response.text();
       const data = responseText ? JSON.parse(responseText) : {};
-
+  
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
+  
       onDelete(deckId);
+      showFeedback("success", "Deck supprimé avec succès !");
       handleCloseDialog();
     } catch (error) {
       console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -181,17 +178,8 @@ export function Deck({ deck, onDelete, deckId }) {
           </div>
         </dialog>
       </div>
-      {showFeedback && (
-        <motion.div
-          className="status-feedback"
-          initial={{ opacity: 0, y: 20 }} // Initial position (invisible, lower)
-          animate={{ opacity: 1, y: 0 }} // Final position (visible, centered)
-          exit={{ opacity: 0, y: 20 }} // Exit position (invisible, lower)
-          transition={{ duration: 0.2 }} // Transition duration
-        >
-          <p>Status mis à jour avec succès !</p>
-        </motion.div>
-      )}
+      {/* Affichage du Feedback si présent */}
+      {feedback && <Feedback success={feedback.type === 'success' ? feedback.message : null} error={feedback.type === 'error' ? feedback.message : null} />}
     </>
   );
 }

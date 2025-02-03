@@ -310,7 +310,6 @@ nav {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--secondary-color);
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -319,6 +318,12 @@ nav {
   visibility: hidden;
   transition: opacity 0.5s, visibility 0.5s;
   z-index: 1000;
+}
+.status-feedback.success{
+  background-color: var(--secondary-color);
+}
+.status-feedback.error{
+  background-color: red;
 }
 
 .status-feedback {

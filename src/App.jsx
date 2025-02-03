@@ -9,6 +9,8 @@ import { NavBar } from "./components/NavBar";
 import { Administrateur } from "./pages/Administrateur";
 import { AjouterDeck } from "./pages/AjouterDeck";
 import { useState, useEffect } from "react";
+import { FeedbackProvider } from "./context/FeedbackContext";
+import { Feedback } from "./components/Feedback";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,7 @@ function Root() {
         <NavBar></NavBar>
       </header>
       <main>
+        <Feedback/>
         <Outlet />
       </main>
     </>
@@ -94,7 +97,9 @@ function App() {
     }
   }, []);
 
-  return <RouterProvider router={router} />;
+  return <FeedbackProvider>
+      <RouterProvider router={router} />
+    </FeedbackProvider>;
 }
 
 export default App;
