@@ -55,7 +55,11 @@ L'application a été faite en collaboration avec
 Les contributions sont les bienvenues !
 
 Forkez le projet
+
 Créez votre branche (git checkout -b feature/nouvelle-fonctionnalite)
+
 Commitez vos modifications (git commit -m 'Ajout d'une nouvelle fonctionnalité')
+
 Pushez vers la branche (git push origin feature/nouvelle-fonctionnalite)
+
 Ouvrez une Pull Request
