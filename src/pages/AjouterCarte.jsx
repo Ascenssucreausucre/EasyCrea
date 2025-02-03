@@ -165,7 +165,8 @@ export function AjouterCarte() {
                 <Input
                   label="Population"
                   name="valeurs_choix1_population"
-                  type="number"
+                  type="tel"
+                  pattern="-?[0-9]+"
                   numberMin={-15}
                   numberMax={15}
                   placeholder="Population pour le choix 1"
@@ -176,7 +177,8 @@ export function AjouterCarte() {
                 <Input
                   label="Finances"
                   name="valeurs_choix1_finances"
-                  type="number"
+                  type="tel"
+                  pattern="-?[0-9]+"
                   numberMin={-15}
                   numberMax={15}
                   placeholder="Finances pour le choix 1"
@@ -201,7 +203,8 @@ export function AjouterCarte() {
                 <Input
                   label="Population"
                   name="valeurs_choix2_population"
-                  type="number"
+                  type="tel"
+                  pattern="-?[0-9]+"
                   numberMin={-15}
                   numberMax={15}
                   placeholder="Population pour le choix 2"
@@ -212,7 +215,8 @@ export function AjouterCarte() {
                 <Input
                   label="Finances"
                   name="valeurs_choix2_finances"
-                  type="number"
+                  type="tel"
+                  pattern="-?[0-9]+"
                   numberMin={-15}
                   numberMax={15}
                   placeholder="Finances pour le choix 2"

@@ -26,6 +26,7 @@ export function Input({
   numberMax,
   numberMin,
   disabled,
+  pattern,
 }) {
   const numberProps =
     type === "number" && numberMax && numberMin ? { min: -15, max: 15 } : {};
@@ -71,6 +72,7 @@ export function Input({
             required={required}
             disabled={disabled}
             {...numberProps}
+            pattern={pattern}
             className="form-control"
           />
         )}
