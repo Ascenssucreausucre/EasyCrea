@@ -48,7 +48,7 @@ export function NavBar() {
       {/* Menu */}
       <nav ref={navRef} className={`nav-menu ${menuOpen ? "active" : ""}`}>
         <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
-          Home
+          Menu
         </NavLink>
         <NavLink
           to="/decks"
@@ -66,7 +66,7 @@ export function NavBar() {
                 className="nav-link"
                 onClick={() => setMenuOpen(false)}
               >
-                Dashboard
+                Modération
               </NavLink>
             ) : (
               <NavLink
