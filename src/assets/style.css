@@ -422,7 +422,7 @@ form textarea {
   transition: outline 0.2s ease-out, box-shadow 0.2s ease-out,
     color 0.2s ease-out;
 }
-form input[type="number"] {
+form input[type="tel"] {
   width: 60px;
   padding-inline: 5px;
 }
