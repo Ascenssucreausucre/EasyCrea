@@ -605,6 +605,10 @@ form > p:last-of-type,
   text-align: center;
 }
 
+.install-button {
+  margin-block: 10px;
+}
+
 /* MEDIA QUERIES */
 /* MEDIA QUERIES */
 
