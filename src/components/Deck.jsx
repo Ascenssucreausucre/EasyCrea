@@ -3,7 +3,7 @@ import { useFeedback } from "../context/FeedbackContext";
 import { useRef, useState } from "react";
 import heart from "/src/assets/img/heart.svg";
 
-export function Deck({ deck, onDelete, deckId }) {
+export function Deck({ deck, onDelete, deckId, onUpdateStatus }) {
   const userData = JSON.parse(localStorage.getItem("user-data"));
   const token = localStorage.getItem("token");
   const { showFeedback } = useFeedback();
@@ -24,10 +24,10 @@ export function Deck({ deck, onDelete, deckId }) {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            status: deckData.status, // Mettre deckData.status dans un objet avec la clé "status"
+            status: deckData.status,
           }),
         }
       );
@@ -38,6 +38,7 @@ export function Deck({ deck, onDelete, deckId }) {
       }
 
       showFeedback("success", "Status changé avec succès !");
+      onUpdateStatus(deckData.id_deck, deckData.status, deck.status);
     } catch (error) {
       console.error("Erreur :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);

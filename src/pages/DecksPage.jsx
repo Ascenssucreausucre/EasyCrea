@@ -9,11 +9,30 @@ export function DecksPage() {
   const { userData } = useUser(); // Accéder aux données utilisateur
   const [decks, setDecks] = useState(deckList);
 
-  const handleStatusUpdate = (id, newStatus) => {
-    setDecks((prevDatas) => {
-      prevDatas.map((data) =>
-        data.id === id ? { ...prevDatas, status: newStatus } : data
+  const handleStatusUpdate = (deckId, newStatus, oldStatus) => {
+    setDecks((prevDecks) => {
+      // 1️⃣ Copier l'état actuel
+      const updatedDecks = { ...prevDecks };
+
+      // 2️⃣ Trouver le deck à déplacer
+      const deckToMove = updatedDecks[oldStatus].find(
+        (deck) => deck.id_deck === deckId
       );
+      if (!deckToMove) return prevDecks; // Si le deck n'existe pas, ne rien faire
+
+      // 3️⃣ Retirer le deck de son ancien tableau
+      updatedDecks[oldStatus] = updatedDecks[oldStatus].filter(
+        (deck) => deck.id_deck !== deckId
+      );
+
+      // 4️⃣ Modifier son statut
+      deckToMove.status = newStatus;
+
+      // 5️⃣ Ajouter le deck dans le nouveau tableau
+      updatedDecks[newStatus] = [...updatedDecks[newStatus], deckToMove];
+
+      // 6️⃣ Mettre à jour l'état avec la nouvelle version des decks
+      return updatedDecks;
     });
   };
 
@@ -41,6 +60,7 @@ export function DecksPage() {
                   key={deck.id_deck} // Ajout de la prop `key` unique
                   deck={deck}
                   onDelete={handleDeleteDeck}
+                  onUpdateStatus={handleStatusUpdate}
                 />
               ))}
             </div>
@@ -62,6 +82,7 @@ export function DecksPage() {
                   key={deck.id_deck} // Ajout de la prop `key` unique
                   deck={deck}
                   onDelete={handleDeleteDeck}
+                  onUpdateStatus={handleStatusUpdate}
                 />
               ))}
             </div>
@@ -78,6 +99,7 @@ export function DecksPage() {
                   key={deck.id_deck} // Ajout de la prop `key` unique
                   deck={deck}
                   onDelete={handleDeleteDeck}
+                  onUpdateStatus={handleStatusUpdate}
                 />
               ))}
             </div>
