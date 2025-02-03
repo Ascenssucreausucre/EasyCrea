@@ -1,6 +1,6 @@
 # Easycrea
 
-https://easycrea.netlify.app/assets/EasyCrea-pmvE9h6R.svg
+![Easycrea](src/assets/imag/EasyCrea.svg)
 
 Easycrea est une **Progressive Web App (PWA)** développée avec **React** pour enrichir le jeu **Deckouverte**, un jeu de cartes interactif. Cette application permet à la communauté d'ajouter et de gérer leurs propres cartes dans les decks créés par les administrateurs.
 
