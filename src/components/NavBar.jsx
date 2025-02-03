@@ -1,16 +1,38 @@
 import { Link, NavLink } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import logo from "/src/assets/img/EasyCrea.svg";
 import burger from "../assets/img/menu.png";
 
 export function NavBar() {
   const { userData, logout } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef(null);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuOpen && // Vérifie si le menu est ouvert
+        navRef.current && // Vérifie si la ref est définie
+        !navRef.current.contains(event.target) && // Vérifie si le clic est en dehors du menu
+        !event.target.closest(".burger") // Vérifie si le clic n'est pas sur le bouton burger
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   return (
     <div className="navbar">
@@ -24,7 +46,7 @@ export function NavBar() {
       </div>
 
       {/* Menu */}
-      <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
+      <nav ref={navRef} className={`nav-menu ${menuOpen ? "active" : ""}`}>
         <NavLink to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
           Home
         </NavLink>

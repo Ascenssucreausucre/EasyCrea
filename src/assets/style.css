@@ -654,15 +654,19 @@ form > p:last-of-type,
     position: absolute;
     flex-direction: column;
     background-color: var(--background-color);
-    width: 80vw;
+    width: 60vw;
     top: 0;
-    right: -80vw;
+    right: -60vw;
     height: 100dvh;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
     transition: right 0.2s ease-in;
   }
   nav.active {
     right: 0;
+  }
+  nav > .nav-link,
+  nav > .button {
+    font-size: var(--big-font-size);
   }
   .deck {
     padding: 5px 10px;
