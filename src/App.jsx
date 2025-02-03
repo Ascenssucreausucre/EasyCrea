@@ -5,7 +5,7 @@ import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
 import { AjouterCarte } from "./pages/AjouterCarte";
-import { NavBar } from "./components/Navbar";
+import { NavBar } from "./components/NavBar";
 import { Administrateur } from "./pages/Administrateur";
 import { AjouterDeck } from "./pages/AjouterDeck";
 import { useState, useEffect } from "react";
