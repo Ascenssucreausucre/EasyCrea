@@ -56,43 +56,51 @@ export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/${carte.id_carte}`, // URL de l'API pour créer un deck
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/${carte.id_carte}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      // Vérifier si la réponse est correcte (statut 200 ou 201)
+      // Lire la réponse brute
+      const responseText = await response.text();
+
+      // Tenter de parser la réponse en JSON
+      let data;
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        console.error("Erreur de parsing JSON :", e);
+        throw new Error("La réponse de l'API est mal formatée.");
+      }
+
+      // Vérifier si la requête a échoué
       if (!response.ok) {
-        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
+        console.error("Erreur capturée depuis l'API :", data);
+        throw new Error(data.error || "Une erreur inconnue s'est produite.");
       }
 
-      // Essayer de lire la réponse en JSON
-      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
-      const data = responseText ? JSON.parse(responseText) : {};
-
-      if (!data) {
-        throw new Error("La réponse de l'API est vide ou mal formatée.");
-      }
+      // Si tout est bon, afficher un message de succès et exécuter la suppression locale
       handleCloseDialog();
       showFeedback("success", "Carte supprimée avec succès !");
       onDelete(deckId, carte.id_carte);
     } catch (error) {
-      console.error("Erreur :", error.message);
+      console.error("Erreur capturée :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
+
   const handleSubmit = async (e) => {
     setIsEditable(false); // Sauvegarder et désactiver le mode modifiable
     e.preventDefault();
 
     try {
       const response = await fetch(
-        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/${carte.id_carte}`, // URL de ton API
+        `https://srochedix.alwaysdata.net/ReignApi/api/v1/cartes/${carte.id_carte}`, // URL de l'API
         {
           method: "PATCH",
           headers: {
@@ -103,21 +111,26 @@ export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
         }
       );
 
-      // Vérifier si la réponse est correcte (statut 200 ou 201)
+      // Lire la réponse brute
+      const responseText = await response.text();
+
+      // Tenter de parser la réponse en JSON
+      let data;
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        throw new Error("La réponse de l'API est mal formatée.");
+      }
+
+      // Vérifier si la requête a échoué
       if (!response.ok) {
-        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
+        throw new Error(data.error || "Une erreur inconnue s'est produite.");
       }
 
-      // Essayer de lire la réponse en JSON
-      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
-      const data = responseText ? JSON.parse(responseText) : {};
-
-      if (!data) {
-        throw new Error("La réponse de l'API est vide ou mal formatée.");
-      }
+      // Tout est bon, afficher un message de succès ou effectuer d'autres actions nécessaires
+      showFeedback("success", "Carte mise à jour avec succès !");
     } catch (error) {
-      console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
 
@@ -264,7 +277,7 @@ export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
             </div>
           </div>
         </div>
-        {userData && userData.userType === "administrateur" ? (
+        {userData && userData.userType === "administrateur" && onDelete ? (
           <div className="button-container">
             {isEditable ? (
               <>

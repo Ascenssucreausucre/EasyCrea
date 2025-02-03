@@ -43,33 +43,43 @@ export function AjouterDeck() {
 
     try {
       const response = await fetch(
-        "https://srochedix.alwaysdata.net/ReignApi/api/v1/deck", // URL de l'API pour créer un deck
+        "https://srochedix.alwaysdata.net/ReignApi/api/v1/deck",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Ajout du token dans l'en-tête Authorization
+            Authorization: `Bearer ${token}`, // Correction de la syntaxe pour inclure le token
           },
-          body: JSON.stringify(formData), // Envoi des données du formulaire dans le corps de la requête
+          body: JSON.stringify(formData),
         }
       );
 
-      // Vérifier si la réponse est correcte (statut 200 ou 201)
+      // Lire la réponse brute
+      const responseText = await response.text();
+
+      // Tenter de parser la réponse en JSON
+      let data;
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        console.error("Erreur de parsing JSON :", e);
+        throw new Error("La réponse de l'API est mal formatée.");
+      }
+
+      // Vérifier si la requête a échoué
       if (!response.ok) {
-        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
+        console.error("Erreur capturée depuis l'API :", data);
+        throw new Error(data.error || "Une erreur inconnue s'est produite.");
       }
 
-      // Essayer de lire la réponse en JSON
-      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
-      const data = responseText ? JSON.parse(responseText) : {};
-
-      if (!data) {
-        throw new Error("La réponse de l'API est vide ou mal formatée.");
-      }
-      showFeedback("success", "Deck créé avec succès, ajoutez-lui sa première carte !");
+      // Si tout est bon, afficher un message de succès et rediriger
+      showFeedback(
+        "success",
+        "Deck créé avec succès, ajoutez-lui sa première carte !"
+      );
       navigate(`/deck/ajouter/${data.deck.id_deck}`);
     } catch (error) {
-      console.error("Erreur :", error.message);
+      console.error("Erreur capturée :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };

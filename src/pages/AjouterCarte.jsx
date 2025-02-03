@@ -57,16 +57,25 @@ export function AjouterCarte() {
         }
       );
 
+      // Vérifier si la requête a échoué
       if (!response.ok) {
         throw new Error("Erreur de requête. Statut HTTP: " + response.status);
       }
 
-      const data = await response.json(); // Convertir la réponse en JSON
-      const randomCard = data.card; // Convertir la réponse en JSON
+      // Convertir la réponse en JSON
+      const data = await response.json();
 
-      setRandomCard(randomCard); // Stocker la carte dans l'état local
+      // Extraire la carte aléatoire
+      const randomCard = data.card;
+
+      // Mettre à jour l'état local avec la carte aléatoire
+      setRandomCard(randomCard);
     } catch (error) {
-      showFeedback("error", `Une erreur est survenue lors du chargement de la carte aléatoire: ${error.message}`);
+      // Afficher un message d'erreur via showFeedback
+      showFeedback(
+        "error",
+        `Une erreur est survenue lors du chargement de la carte aléatoire: ${error.message}`
+      );
     }
   };
 
@@ -114,9 +123,7 @@ export function AjouterCarte() {
       }
 
       // Essayer de lire la réponse en JSON
-      const responseText = await response.text(); // Afficher la réponse brute pour analyser son contenu
-
-      const data = responseText ? JSON.parse(responseText) : {};
+      const data = await response.json(); // Pas besoin de passer par `text()` ici, `json()` suffit
 
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
@@ -126,9 +133,7 @@ export function AjouterCarte() {
 
       navigate("/"); // Redirection vers la page d'accueil après succès
     } catch (error) {
-      console.error("Erreur :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
-      console.log(error);
     }
   };
 

@@ -38,7 +38,6 @@ export function Deck({ deck, onDelete, deckId }) {
       }
 
       showFeedback("success", "Status changé avec succès !");
-
     } catch (error) {
       console.error("Erreur :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
@@ -58,18 +57,18 @@ export function Deck({ deck, onDelete, deckId }) {
           },
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Erreur de requête. Statut HTTP: " + response.status);
       }
-  
+
       const responseText = await response.text();
       const data = responseText ? JSON.parse(responseText) : {};
-  
+
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
-  
+
       onDelete(deckId);
       showFeedback("success", "Deck supprimé avec succès !");
       handleCloseDialog();
@@ -78,7 +77,6 @@ export function Deck({ deck, onDelete, deckId }) {
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -118,9 +116,9 @@ export function Deck({ deck, onDelete, deckId }) {
             </p>
           </div>
           <div className="deck-stats">
-            <div className="nb-carte">
+            {/* <div className="nb-carte">
               <p>{deckData.nb_cartes}</p>
-            </div>
+            </div> */}
             <p className="nb-likes">
               {deckData.nb_jaime || 0}{" "}
               <img className="like" src={heart} alt="" />
@@ -150,20 +148,26 @@ export function Deck({ deck, onDelete, deckId }) {
                 </button>
               </div>
             ) : (
-              <p className="deck-status">{deckData.status}</p>
+              <p className={deckData.status + " deck-status"}>
+                {deckData.status}
+              </p>
             )}
           </div>
         </div>
-        <div className="button-container">
-          <NavLink to={`/deck/ajouter/${deckData.id_deck}`} className="link">
-            Ajouter une carte
-          </NavLink>
-          {userData && userData.userType === "administrateur" ? (
-            <a className="link delete-button" onClick={handleOpenDialog}>
-              Supprimer le deck
-            </a>
-          ) : null}
-        </div>
+        {deckData.status !== "Playable" &&
+        deckData.status !== "Pending" &&
+        deckData.nb_cartes_atm <= deckData.nb_cartes ? (
+          <div className="button-container">
+            <NavLink to={`/deck/ajouter/${deckData.id_deck}`} className="link">
+              Ajouter une carte
+            </NavLink>
+            {userData && userData.userType === "administrateur" ? (
+              <a className="link delete-button" onClick={handleOpenDialog}>
+                Supprimer le deck
+              </a>
+            ) : null}
+          </div>
+        ) : null}
         <dialog className="verif" ref={dialogRef}>
           <p>
             Êtes vous sûr de supprimer ce deck ? Cette action est irreversible.
@@ -179,7 +183,12 @@ export function Deck({ deck, onDelete, deckId }) {
         </dialog>
       </div>
       {/* Affichage du Feedback si présent */}
-      {feedback && <Feedback success={feedback.type === 'success' ? feedback.message : null} error={feedback.type === 'error' ? feedback.message : null} />}
+      {feedback && (
+        <Feedback
+          success={feedback.type === "success" ? feedback.message : null}
+          error={feedback.type === "error" ? feedback.message : null}
+        />
+      )}
     </>
   );
 }

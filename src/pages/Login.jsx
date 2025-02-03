@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useUser } from "../context/UserContext"; // Importer useUser
+import { useFeedback } from "../context/FeedbackContext";
 
 export function Login() {
+  const { showFeedback } = useFeedback();
   const [formData, setFormData] = useState({
     ad_mail: "",
     mdp: "",
@@ -22,6 +24,7 @@ export function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch(
         "https://srochedix.alwaysdata.net/ReignApi/api/v1/auth/login",
@@ -34,18 +37,19 @@ export function Login() {
         }
       );
 
+      // Essayer de lire la réponse en JSON
       const data = await response.json();
 
+      // Vérifier si la réponse est correcte
       if (!response.ok) {
         throw new Error(data.error || "Erreur lors de la connexion");
       }
 
-      // Utiliser login pour mettre à jour le contexte utilisateur
+      // Utiliser le token pour mettre à jour le contexte utilisateur
       login(data.token);
-      navigate("/"); // Redirection
+      navigate("/"); // Redirection vers la page d'accueil
     } catch (error) {
-      console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
 

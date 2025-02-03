@@ -1,31 +1,34 @@
 import { Input } from "./Input";
 import { InputRange } from "./InputRange";
 import { Checkbox } from "./Checkbox";
+import { Search } from "lucide-react"; // Import de l'icône de loupe
 
 export function Searchbar({
-  showStockedOnly,
-  onStockedOnlyChange,
+  showParticipated,
+  onShowParticipatedChange,
   searchItem,
   onSearchItemChange,
   range,
   onRangeChange,
 }) {
   return (
-    <div>
-      <div className="mb-3">
+    <div className="searchbar-container">
+      <div className="searchbar">
+        <Search className="search-icon" size={20} /> {/* Icône de loupe */}
         <Input
           value={searchItem}
           onChange={onSearchItemChange}
           placeholder="Rechercher..."
-        />
-        <InputRange value={range} id="rangedItems" onChange={onRangeChange} />
-        <Checkbox
-          id="stocked"
-          checked={showStockedOnly}
-          onChange={onStockedOnlyChange}
-          label="Afficher les decks auxquels j'ai déjà contribué"
+          className="search-input"
         />
       </div>
+      {/* <InputRange value={range} id="rangedItems" onChange={onRangeChange} /> */}
+      <Checkbox
+        id="stocked"
+        checked={showParticipated}
+        onChange={onShowParticipatedChange}
+        label="Afficher les decks auxquels j'ai déjà contribué"
+      />
     </div>
   );
 }

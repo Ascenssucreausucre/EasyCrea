@@ -180,17 +180,59 @@ nav {
   flex-wrap: wrap;
 }
 
+.searchbar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.searchbar {
+  display: flex;
+  margin: 10px 20%;
+  align-items: center;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+.searchbar .form-input {
+  height: 100%;
+  width: 100%;
+  margin-block: unset;
+}
+.searchbar input[type="text"] {
+  border: none;
+  height: 100%;
+  width: 100%;
+  outline: unset;
+}
+.searchbar input[type="text"]:focus {
+  outline: unset;
+}
+
+.search-icon {
+  color: #888;
+  margin-right: 8px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
 /* DECKS */
 /* DECKS */
 
-/* .deck-card {
-  border-radius: 15px;
+.deck-card {
+  text-align: center;
+  /* border-radius: 15px;
   background-color: var(--color-white);
   padding: 10px 20px;
   margin-block: 10px;
-  box-shadow: inset 0 0 5px #d2367a60;
+  box-shadow: inset 0 0 5px #d2367a60; */
 }
-.deck-card .deck,
+/* .deck-card .deck,
 .deck-card form {
   background-color: var(--background-color);
 }
@@ -201,6 +243,10 @@ nav {
   max-width: 100%;
 } */
 
+.deck-card > button {
+  margin-bottom: 10px;
+}
+
 .deck {
   position: relative;
   background-color: var(--color-white);
@@ -209,6 +255,7 @@ nav {
   border-radius: 10px;
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.1));
   width: 48%;
+  text-align: left;
 }
 .deck-list .deck {
   width: 100%;
@@ -235,20 +282,62 @@ nav {
 }
 .deck-stats {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  align-items: start;
+  width: 30%;
+  max-width: 150px;
 }
 .deck-text {
   font-size: var(--small-font-size);
   overflow-x: hidden;
 }
 .nb-likes {
-  font-size: var(--big-font-size);
+  font-size: var(--medium-font-size);
   color: #ff0000;
   font-weight: 900;
   display: flex;
 }
 .like {
-  height: var(--big-font-size);
+  height: var(--medium-font-size);
+}
+.status {
+  text-align: center;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.status > * {
+  font-size: var(--small-font-size);
+}
+.status > select {
+  width: 100%;
+  max-width: 100px;
+}
+.smaller-button {
+  margin-block-start: 5px;
+  font-size: var(--small-font-size);
+  padding: 5px 10px;
+}
+p.deck-status {
+  padding: 5px 10px;
+  border-radius: 100px;
+  font-weight: 600;
+}
+p.deck-status.WIP {
+  background-color: yellow;
+}
+p.deck-status.Playable {
+  background-color: green;
+  color: white;
+}
+p.deck-status.Pending {
+  background-color: orange;
+  color: white;
+}
+p.deck-status.Planned {
+  background-color: var(--background-color);
+  color: white;
 }
 .nb-carte {
   background-color: #36206d;
@@ -295,44 +384,37 @@ nav {
   font-size: var(--medium-font-size);
   text-align: center;
 }
-.status {
-  text-align: center;
-  width: fit-content;
-}
-.status .smaller-button {
-  margin-block-start: 5px;
-  font-size: var(--small-font-size);
-  padding: 5px 10px;
-}
 /* Style de la div qui apparaît en bas de l'écran */
 .status-feedback {
   position: fixed;
   bottom: 20px;
   left: 50%;
-  transform: translateX(-50%);
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s, visibility 0.5s;
   z-index: 1000;
 }
-.status-feedback.success{
+.status-feedback.success {
   background-color: var(--secondary-color);
 }
-.status-feedback.error{
+.status-feedback.error {
   background-color: red;
 }
 
-.status-feedback {
-  opacity: 1;
-  visibility: visible;
+/* CARTE */
+/* CARTE */
+
+.carte {
+  text-align: left;
 }
 
-/* CARTE */
-/* CARTE */
+form > h2.title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  width: 100%;
+}
 
 .card-list {
   display: flex;
@@ -509,16 +591,32 @@ form > p:last-of-type,
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 800px) {
+  main {
+    padding-inline: 5vw;
+  }
   .deck {
     width: 100%;
     padding: 15px 25px;
   }
+  .card-list {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: auto var(--background-color);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+  .card-list.active {
+    scrollbar-width: thin;
+  }
+  .card-list .carte {
+    scroll-snap-stop: always;
+    scroll-snap-align: center;
+    margin-inline: 10px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-  main {
-    padding-inline: 5vw;
-  }
   .burger {
     display: block;
   }

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
+import { useFeedback } from "../context/FeedbackContext";
 
 export function SignUp() {
+  const { showFeedback } = useFeedback();
   const [formData, setFormData] = useState({
     ad_mail_createur: "",
     mdp_createur: "",
@@ -55,14 +57,11 @@ export function SignUp() {
         );
       }
 
-      console.log("Succès :", data);
-
       // Afficher un message de succès
-      alert("Compte créé avec succès !");
+      showFeedback("success", "Compte créé avec succès !");
       navigate("/login"); // Redirection après succès
     } catch (error) {
-      console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`); // Afficher le message d'erreur
+      showFeedback("error", `Une erreur est survenue : ${error.message}`); // Afficher le message d'erreur
     }
   };
 
