@@ -3,12 +3,14 @@ import { Input } from "./Input";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useFeedback } from "../context/FeedbackContext";
 
 export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
   const [isEditable, setIsEditable] = useState(false); // État pour gérer le mode
   const token = localStorage.getItem("token");
   const userData = JSON.parse(localStorage.getItem("user-data")); // Accéder aux données utilisateur
   const navigate = useNavigate();
+  const { showFeedback } = useFeedback();
 
   useEffect(() => {
     if (!userData) {
@@ -77,10 +79,11 @@ export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
       handleCloseDialog();
+      showFeedback("success", "Carte supprimée avec succès !");
       onDelete(deckId, carte.id_carte);
     } catch (error) {
       console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
   const handleSubmit = async (e) => {

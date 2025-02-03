@@ -3,15 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
 import { useUser } from "../context/UserContext";
+import { useFeedback } from "../context/FeedbackContext";
 
 export function AjouterDeck() {
   const navigate = useNavigate();
+  const { showFeedback } = useFeedback();
   const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
   const { userData } = useUser();
 
   useEffect(() => {
     if (!token) {
-      alert("Vous devez être connecté pour ajouter un deck");
+      showFeedback("error", "Vous devez être connectés pour ajouter une carte");
       navigate("/login");
       return;
     }
@@ -64,12 +66,11 @@ export function AjouterDeck() {
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
-      alert("Deck créé avec succès, ajoutez-lui sa première carte !");
+      showFeedback("success", "Deck créé avec succès, ajoutez-lui sa première carte !");
       navigate(`/deck/ajouter/${data.deck.id_deck}`);
     } catch (error) {
       console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
-      console.log(error);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };
 

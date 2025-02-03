@@ -3,9 +3,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useEffect } from "react";
 import { Carte } from "../components/Carte";
+import { useFeedback } from "../context/FeedbackContext";
 
 export function AjouterCarte() {
   const { id } = useParams(); // Récupère l'ID du deck depuis l'URL
+  const { showFeedback } = useFeedback();
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // Récupère le token depuis le localStorage
   const userData = JSON.parse(localStorage.getItem("user-data"));
@@ -64,8 +66,7 @@ export function AjouterCarte() {
 
       setRandomCard(randomCard); // Stocker la carte dans l'état local
     } catch (error) {
-      console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue lors du chargement de la carte aléatoire: ${error.message}`);
     }
   };
 
@@ -121,11 +122,12 @@ export function AjouterCarte() {
         throw new Error("La réponse de l'API est vide ou mal formatée.");
       }
 
-      alert("Carte créée avec succès !");
+      showFeedback("success", "Carte ajoutée avec succès !");
+
       navigate("/"); // Redirection vers la page d'accueil après succès
     } catch (error) {
       console.error("Erreur :", error.message);
-      alert(`Une erreur est survenue : ${error.message}`);
+      showFeedback("error", `Une erreur est survenue : ${error.message}`);
       console.log(error);
     }
   };
