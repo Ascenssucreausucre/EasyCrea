@@ -5,13 +5,49 @@ import { Login } from "./pages/Login";
 import { SignUp } from "./pages/SignUp";
 import { Createur } from "./pages/Createur";
 import { AjouterCarte } from "./pages/AjouterCarte";
-import { NavBar } from "./components/NavBar";
+import { NavBar } from "./components/Navbar";
 import { Administrateur } from "./pages/Administrateur";
 import { AjouterDeck } from "./pages/AjouterDeck";
 import { useState, useEffect } from "react";
 import { FeedbackProvider } from "./context/FeedbackContext";
 import { Feedback } from "./components/Feedback";
 
+const decksLoader = async () => {
+  const token = localStorage.getItem("token"); // Récupérer le token
+
+  if (!token) {
+    throw new Response("Non autorisé", { status: 401 });
+  }
+
+  const response = await fetch(
+    "https://srochedix.alwaysdata.net/ReignApi/api/v1/decksnew",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Response("Erreur lors du chargement des decks", {
+      status: response.status,
+    });
+  }
+
+  return response.json(); // Retourne directement les données
+};
+
+const loader = async () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    return decksLoader(); // Si le token existe, utilise le loader de decks
+  } else {
+    return fetch("https://srochedix.alwaysdata.net/ReignApi/api/v1/decksnew"); // Sinon, fais une requête sans token
+  }
+};
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,8 +60,7 @@ const router = createBrowserRouter([
       {
         path: "/decks",
         element: <DecksPage />,
-        loader: () =>
-          fetch(`https://srochedix.alwaysdata.net/ReignApi/api/v1/decks`),
+        loader,
       },
       {
         path: "/login",
@@ -66,7 +101,7 @@ function Root() {
         <NavBar></NavBar>
       </header>
       <main>
-        <Feedback/>
+        <Feedback />
         <Outlet />
       </main>
     </>
@@ -80,10 +115,10 @@ function App() {
       navigator.serviceWorker
         .register("/service-worker.js")
         .then((registration) => {
-          console.log("Service Worker enregistré avec succès :", registration);
+          // console.log("Service Worker enregistré avec succès :", registration);
         })
         .catch((error) => {
-          console.log("Erreur d'enregistrement du Service Worker :", error);
+          // console.log("Erreur d'enregistrement du Service Worker :", error);
         });
     }
   }, []);
@@ -97,9 +132,11 @@ function App() {
     }
   }, []);
 
-  return <FeedbackProvider>
+  return (
+    <FeedbackProvider>
       <RouterProvider router={router} />
-    </FeedbackProvider>;
+    </FeedbackProvider>
+  );
 }
 
 export default App;

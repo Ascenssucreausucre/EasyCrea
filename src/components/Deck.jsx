@@ -119,10 +119,10 @@ export function Deck({ deck, onDelete, deckId }) {
             {/* <div className="nb-carte">
               <p>{deckData.nb_cartes}</p>
             </div> */}
-            <p className="nb-likes">
+            {/* <p className="nb-likes">
               {deckData.nb_jaime || 0}{" "}
               <img className="like" src={heart} alt="" />
-            </p>
+            </p> */}
             {userData && userData.userType === "administrateur" ? (
               <div className="status">
                 <select
@@ -154,20 +154,25 @@ export function Deck({ deck, onDelete, deckId }) {
             )}
           </div>
         </div>
-        {deckData.status !== "Playable" &&
-        deckData.status !== "Pending" &&
-        deckData.nb_cartes_atm <= deckData.nb_cartes ? (
-          <div className="button-container">
+        <div
+          className={
+            userData.userType === "administrateur"
+              ? "button-container"
+              : "reverse button-container"
+          }
+        >
+          {userData && userData.userType === "administrateur" ? (
+            <a className="link delete-button" onClick={handleOpenDialog}>
+              Supprimer le deck
+            </a>
+          ) : null}
+          {deckData.status === "WIP" &&
+          parseInt(deckData.nb_cartes_atm) <= parseInt(deckData.nb_cartes) ? (
             <NavLink to={`/deck/ajouter/${deckData.id_deck}`} className="link">
               Ajouter une carte
             </NavLink>
-            {userData && userData.userType === "administrateur" ? (
-              <a className="link delete-button" onClick={handleOpenDialog}>
-                Supprimer le deck
-              </a>
-            ) : null}
-          </div>
-        ) : null}
+          ) : null}
+        </div>
         <dialog className="verif" ref={dialogRef}>
           <p>
             Êtes vous sûr de supprimer ce deck ? Cette action est irreversible.

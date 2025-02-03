@@ -23,12 +23,12 @@ export function Searchbar({
         />
       </div>
       {/* <InputRange value={range} id="rangedItems" onChange={onRangeChange} /> */}
-      <Checkbox
+      {/* <Checkbox
         id="stocked"
         checked={showParticipated}
         onChange={onShowParticipatedChange}
         label="Afficher les decks auxquels j'ai déjà contribué"
-      />
+      /> */}
     </div>
   );
 }

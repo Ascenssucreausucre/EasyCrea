@@ -83,12 +83,12 @@ export function Login() {
             </Link>
           </p>
           <div className="button-container">
-            <button type="submit" className="button">
-              Se connecter
-            </button>
             <Link to={"/"} className="link">
               Annuler
             </Link>
+            <button type="submit" className="button">
+              Se connecter
+            </button>
           </div>
         </form>
       </div>

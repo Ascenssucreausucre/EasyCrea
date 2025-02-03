@@ -281,22 +281,21 @@ export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
           <div className="button-container">
             {isEditable ? (
               <>
-                <button type="button" className="button" onClick={handleSubmit}>
-                  Sauvegarder
-                </button>
-
                 <a className="link" onClick={handleCancel}>
                   Annuler
                 </a>
+                <button type="button" className="button" onClick={handleSubmit}>
+                  Sauvegarder
+                </button>
               </>
             ) : (
               <>
-                <button className="button" onClick={handleEditClick}>
-                  Modifier
-                </button>
                 <a className="link delete-button" onClick={handleOpenDialog}>
                   Supprimer
                 </a>
+                <button className="button" onClick={handleEditClick}>
+                  Modifier
+                </button>
               </>
             )}
           </div>
@@ -308,11 +307,11 @@ export function Carte({ carte, cardTitle, onDelete, deckId, dashboard }) {
           irreversible.
         </p>
         <div className="button-container">
-          <a className="link delete-button" onClick={handleDelete}>
-            Supprimer la carte
-          </a>
           <a className="link" onClick={handleCloseDialog}>
             Annuler
+          </a>
+          <a className="link delete-button" onClick={handleDelete}>
+            Supprimer la carte
           </a>
         </div>
       </dialog>

@@ -27,6 +27,7 @@
   font-family: "Lilita One", serif;
   font-weight: 400;
   font-style: normal;
+  color: var(--primary-color);
 }
 
 :root {
@@ -58,6 +59,7 @@ html {
   color: white;
   font-size: var(--medium-font-size);
   cursor: pointer;
+  white-space: nowrap;
   transition: background-color 0.2s ease-out;
 }
 .button:hover {
@@ -66,6 +68,9 @@ html {
 .add-button {
   margin-inline: auto;
   text-align: center;
+}
+p {
+  font-size: var(--small-font-size);
 }
 .delete-button.link {
   color: red;
@@ -139,10 +144,12 @@ nav {
   margin-block: 100px;
   display: flex;
   padding-inline: 15vw;
+  align-items: start;
+  justify-content: space-between;
 }
 .img-text img {
-  width: auto;
-  height: 400px;
+  width: 200px;
+  height: auto;
   border-radius: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.425);
   margin-inline: 15px;
@@ -150,6 +157,7 @@ nav {
 .img-text div {
   padding-block: 20%;
   text-align: left;
+  margin-left: 20px;
 }
 .img-text p {
   margin-bottom: 20px;
@@ -169,6 +177,10 @@ nav {
   z-index: -2;
   text-shadow: 0 0 2px var(--secondary-color);
 } */
+
+section.deck-status-section {
+  margin-block: 20px;
+}
 
 /* DECKLIST */
 /* DECKLIST */
@@ -192,8 +204,8 @@ nav {
   align-items: center;
   background: white;
   border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 5px 10px;
+  border-radius: 30px;
+  padding: 10px 15px;
 }
 .searchbar .form-input {
   height: 100%;
@@ -205,6 +217,7 @@ nav {
   height: 100%;
   width: 100%;
   outline: unset;
+  font-size: var(--medium-font-size);
 }
 .searchbar input[type="text"]:focus {
   outline: unset;
@@ -325,7 +338,8 @@ p.deck-status {
   font-weight: 600;
 }
 p.deck-status.WIP {
-  background-color: yellow;
+  background-color: var(--secondary-color);
+  color: white;
 }
 p.deck-status.Playable {
   background-color: green;
@@ -542,8 +556,12 @@ select {
 }
 .button-container {
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+}
+.button-container.reverse {
+  flex-direction: row;
 }
 form .button-container {
   margin-top: 50px;
@@ -614,6 +632,9 @@ form > p:last-of-type,
     scroll-snap-align: center;
     margin-inline: 10px;
   }
+  .img-text {
+    flex-wrap: wrap;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -649,5 +670,12 @@ form > p:last-of-type,
   form input,
   form textarea {
     padding: 8px 5px;
+  }
+  .img-text {
+    padding-inline: 0;
+    justify-content: center;
+  }
+  .img-text div {
+    margin-left: 0px;
   }
 }

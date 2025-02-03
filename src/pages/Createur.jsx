@@ -39,8 +39,9 @@ export function Createur() {
   return (
     <div>
       <h1 className="title">
-        Profil de{" "}
-        {infos.length > 0 ? infos[0].cartes[0].createur.nom_createur : null}
+        {infos.length > 0
+          ? "Profil de " + infos[0].cartes[0].createur.nom_createur
+          : null}
       </h1>
       {infos.length > 0 ? (
         <DeckList infos={infos} />

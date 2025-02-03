@@ -22,7 +22,7 @@ export function Administrateur() {
   return (
     <div className="admin-dashboard">
       <h1 className="title">Admin Dashboard</h1>
-      <p>Affichage des decks et cartes :</p>
+      <p>Panneau d'administration des decks</p>
       {infos.length > 0 ? (
         <DeckList infos={infos} dashboard={true} />
       ) : (

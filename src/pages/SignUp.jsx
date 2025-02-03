@@ -145,12 +145,12 @@ export function SignUp() {
           />
 
           <div className="button-container">
-            <button type="submit" className="button">
-              Créer son compte créateur
-            </button>
             <Link to={"/"} className="link">
               Annuler
             </Link>
+            <button type="submit" className="button">
+              Créer son compte créateur
+            </button>
           </div>
         </form>
       </div>

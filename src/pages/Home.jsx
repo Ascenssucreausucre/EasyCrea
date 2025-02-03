@@ -30,11 +30,6 @@ export function Home() {
     if (deferredPrompt) {
       deferredPrompt.prompt(); // Montre le prompt d'installation
       deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("L'utilisateur a accepté l'installation");
-        } else {
-          console.log("L'utilisateur a refusé l'installation");
-        }
         setDeferredPrompt(null); // Réinitialise le prompt
         setShowInstallButton(false); // Cache le bouton après l'action
       });
@@ -45,10 +40,15 @@ export function Home() {
     <>
       <h1 className="home-title">Easycrea</h1>
       <div className="home-page">
-        <h2>
+        <h2 className="title">
           Bienvenue sur la plateforme de création de deck communautaire de
-          Deckouverte.
+          Deckouverte !
         </h2>
+        <p>
+          Ici, vous pourrez contribuer aux différents decks qui seront jouables
+          plus tard en créant des cartes, et ainsi participer à l'expérience de
+          nombreux joueurs !
+        </p>
         {showInstallButton && (
           <button
             onClick={handleInstallClick}
@@ -61,7 +61,7 @@ export function Home() {
           <img src={Deckouverte} alt="Deckouverte" />
           <div>
             <p>
-              Créez des jeux totalement loufoques !!!! Deckouverte est une
+              Créez des jeux totalement loufoques ! Deckouverte est une
               application dans laquelle vous jouez des decks qui racontent tous
               une histoire différente !
             </p>

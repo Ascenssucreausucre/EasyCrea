@@ -123,7 +123,8 @@ export function AjouterCarte() {
       }
 
       // Essayer de lire la réponse en JSON
-      const data = await response.json(); // Pas besoin de passer par `text()` ici, `json()` suffit
+      const responseText = await response.text();
+      const data = responseText ? JSON.parse(responseText) : {};
 
       if (!data) {
         throw new Error("La réponse de l'API est vide ou mal formatée.");

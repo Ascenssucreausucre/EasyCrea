@@ -5,7 +5,6 @@ const urlsToCache = ["/", "/index.html"];
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Cache ouvert");
       return cache.addAll(urlsToCache);
     })
   );
@@ -27,7 +26,6 @@ self.addEventListener("activate", (event) => {
       Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log("Suppression de l'ancien cache:", cache);
             return caches.delete(cache);
           }
         })
