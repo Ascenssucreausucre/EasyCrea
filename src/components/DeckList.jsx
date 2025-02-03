@@ -115,6 +115,7 @@ export function DeckList({ infos, dashboard }) {
                               carte={carte.random_carte}
                               deckId={deck.id_deck}
                               dashboard={dashboard}
+                              onDelete={handleDeleteCarte}
                               cardTitle="Carte Aléatoire"
                             />
                           </motion.div>

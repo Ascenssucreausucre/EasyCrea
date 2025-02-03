@@ -9,6 +9,14 @@ export function DecksPage() {
   const { userData } = useUser(); // Accéder aux données utilisateur
   const [decks, setDecks] = useState(deckList);
 
+  const handleStatusUpdate = (id, newStatus) => {
+    setDecks((prevDatas) => {
+      prevDatas.map((data) =>
+        data.id === id ? { ...prevDatas, status: newStatus } : data
+      );
+    });
+  };
+
   const handleDeleteDeck = (deckId) => {
     setDecks((prevDecks) =>
       prevDecks.filter((deck) => deck.id_deck !== deckId)
