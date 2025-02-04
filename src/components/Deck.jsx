@@ -38,7 +38,9 @@ export function Deck({ deck, onDelete, deckId, onUpdateStatus }) {
       }
 
       showFeedback("success", "Status changé avec succès !");
-      onUpdateStatus(deckData.id_deck, deckData.status, deck.status);
+      onUpdateStatus
+        ? onUpdateStatus(deckData.id_deck, deckData.status, deck.status)
+        : null;
     } catch (error) {
       console.error("Erreur :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
