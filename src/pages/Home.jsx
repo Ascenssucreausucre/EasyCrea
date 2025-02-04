@@ -83,7 +83,10 @@ export function Home() {
               application dans laquelle vous jouez des decks qui racontent tous
               une histoire différente !
             </p>
-            <a href="" className="button">
+            <a
+              href="https://expo.dev/accounts/mxou/projects/Deckouverte/builds/af056883-7a07-4621-bb4d-7e7cbd2e8489"
+              className="button"
+            >
               Télécharger l'application !
             </a>
           </div>

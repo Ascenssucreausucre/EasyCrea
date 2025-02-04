@@ -60,6 +60,7 @@ html {
   font-size: var(--medium-font-size);
   cursor: pointer;
   white-space: nowrap;
+  border: solid var(--primary-color) 3px;
   transition: background-color 0.2s ease-out;
 }
 .button:hover {

@@ -15,28 +15,41 @@ import { Feedback } from "./components/Feedback";
 const decksLoader = async () => {
   const token = localStorage.getItem("token"); // Récupérer le token
 
+  // Vérifier si le token existe
   if (!token) {
-    throw new Response("Non autorisé", { status: 401 });
-  }
-
-  const response = await fetch(
-    "https://srochedix.alwaysdata.net/ReignApi/api/v1/decks",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Response("Erreur lors du chargement des decks", {
-      status: response.status,
+    throw new Response("Non autorisé, veuillez vous connecter.", {
+      status: 401,
     });
   }
 
-  return response.json(); // Retourne directement les données
+  try {
+    const response = await fetch(
+      "https://srochedix.alwaysdata.net/ReignApi/api/v1/decks",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Ajouter le token dans l'en-tête Authorization
+        },
+      }
+    );
+
+    // Vérifier si la réponse est correcte
+    if (!response.ok) {
+      const errorResponse = await response.text(); // Lecture du texte de la réponse pour plus de détails
+      throw new Response(
+        `Erreur lors du chargement des decks: ${errorResponse}`,
+        { status: response.status }
+      );
+    }
+
+    // Retourner la réponse en JSON
+    return await response.json();
+  } catch (error) {
+    // Gestion des erreurs de fetch ou de parsing
+    console.error("Erreur lors de la récupération des decks:", error.message);
+    throw new Response("Erreur de chargement des decks.", { status: 500 });
+  }
 };
 
 const loader = async () => {
