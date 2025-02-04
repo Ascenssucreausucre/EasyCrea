@@ -1,12 +1,20 @@
 import { Deck } from "./Deck";
 import { Carte } from "./Carte";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Searchbar } from "./SearchBar";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUser } from "../context/UserContext";
 
 export function DeckList({ infos, dashboard }) {
   const [decks, setDecks] = useState(infos); // Utilisation de l'état local pour gérer les decks
   const [searchItem, setSearchItem] = useState("");
+  const navigate = useNavigate();
+  const { userData } = useUser();
+
+  function addDeck() {
+    navigate("/ajouter-deck");
+  }
 
   const handleDeleteCarte = (deckId, carteId) => {
     setDecks((prevDecks) =>
@@ -53,6 +61,13 @@ export function DeckList({ infos, dashboard }) {
         searchItem={searchItem}
         onSearchItemChange={handleSearchChange}
       />
+      {userData.userType === "administrateur" && dashboard ? (
+        <div className="center-content">
+          <button className="button variant" onClick={addDeck}>
+            Nouveau Deck
+          </button>
+        </div>
+      ) : null}
       <AnimatePresence>
         {filteredDecks.map((deck) => (
           <motion.div

@@ -1,6 +1,4 @@
 import { Input } from "./Input";
-import { InputRange } from "./InputRange";
-import { Checkbox } from "./Checkbox";
 import { Search } from "lucide-react"; // Import de l'icône de loupe
 
 export function Searchbar({

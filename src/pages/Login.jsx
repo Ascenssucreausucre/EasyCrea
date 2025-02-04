@@ -38,17 +38,26 @@ export function Login() {
       );
 
       // Essayer de lire la réponse en JSON
-      const data = await response.json();
+      let data = {};
+      try {
+        const responseText = await response.text(); // Lire la réponse en texte
+        data = responseText ? JSON.parse(responseText) : {}; // Tenter de parser la réponse
+      } catch (e) {
+        // Si la réponse n'est pas un JSON valide, afficher un message générique
+        throw new Error("La réponse de l'API est mal formatée.");
+      }
 
       // Vérifier si la réponse est correcte
       if (!response.ok) {
+        // Si la réponse n'est pas OK, utiliser l'erreur retournée par l'API (si présente)
         throw new Error(data.error || "Erreur lors de la connexion");
       }
 
-      // Utiliser le token pour mettre à jour le contexte utilisateur
+      // Si tout est OK, utiliser le token pour mettre à jour le contexte utilisateur
       login(data.token);
       navigate("/"); // Redirection vers la page d'accueil
     } catch (error) {
+      // Afficher un message d'erreur via showFeedback
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };

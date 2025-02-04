@@ -65,12 +65,14 @@ export function DecksPage() {
               ))}
             </div>
           ) : (
-            <p>Chargement des decks...</p>
+            <p>Aucun deck actif pour le moment.</p>
           )}
           {userData && userData.userType === "administrateur" ? (
-            <button className="button add-button" onClick={toAddDeck}>
-              Ajouter un deck
-            </button>
+            <div className="center-content">
+              <button className="button add-button" onClick={toAddDeck}>
+                Ajouter un deck
+              </button>
+            </div>
           ) : null}
         </section>
         <section className="deck-status-section">
@@ -104,7 +106,7 @@ export function DecksPage() {
               ))}
             </div>
           ) : (
-            <p>Aucun deck en cours d'approbation</p>
+            <p>Aucun deck en cours d'approbation.</p>
           )}
         </section>
       </>

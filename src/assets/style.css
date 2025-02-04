@@ -74,6 +74,10 @@ html {
   color: white;
   background-color: var(--secondary-color);
 }
+.center-content {
+  text-align: center;
+  position: sticky;
+}
 .add-button {
   margin-inline: auto;
   text-align: center;
@@ -189,6 +193,9 @@ nav {
 
 section.deck-status-section {
   margin-block: 20px;
+}
+section.deck-status-section > p {
+  margin-bottom: 15px;
 }
 
 /* DECKLIST */

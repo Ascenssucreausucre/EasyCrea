@@ -59,11 +59,28 @@ export function AjouterCarte() {
 
       // Vérifier si la requête a échoué
       if (!response.ok) {
-        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
+        const responseText = await response.text(); // Récupérer la réponse brute
+        let errorMessage = `Erreur de requête. Statut HTTP: ${response.status}`;
+
+        try {
+          const errorData = JSON.parse(responseText); // Essayer de parser la réponse
+          if (errorData?.error) {
+            errorMessage = errorData.error; // Si un message d'erreur est retourné
+          }
+        } catch (e) {
+          // Si la réponse n'est pas un JSON valide, on garde l'erreur générique
+        }
+
+        throw new Error(errorMessage); // Lever l'erreur avec le message approprié
       }
 
       // Convertir la réponse en JSON
       const data = await response.json();
+
+      // Vérifier que la carte existe dans la réponse
+      if (!data || !data.card) {
+        throw new Error("La carte aléatoire est introuvable dans la réponse.");
+      }
 
       // Extraire la carte aléatoire
       const randomCard = data.card;
@@ -117,23 +134,32 @@ export function AjouterCarte() {
         }
       );
 
-      // Vérifier si la réponse est correcte (statut 200 ou 201)
-      if (!response.ok) {
-        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
-      }
-
-      // Essayer de lire la réponse en JSON
+      // Lire la réponse brute
       const responseText = await response.text();
-      const data = responseText ? JSON.parse(responseText) : {};
 
-      if (!data) {
-        throw new Error("La réponse de l'API est vide ou mal formatée.");
+      // Tenter de parser la réponse en JSON
+      let data;
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        throw new Error("La réponse de l'API est mal formatée.");
       }
 
+      // Vérifier si la requête a échoué (par exemple, erreur 409 ou autre)
+      if (!response.ok) {
+        const errorMessage =
+          data.error || `Une erreur inconnue s'est produite.`;
+        throw new Error(errorMessage);
+      }
+
+      // Tout est bon, afficher un message de succès
       showFeedback("success", "Carte ajoutée avec succès !");
 
-      navigate("/"); // Redirection vers la page d'accueil après succès
+      // Redirection vers la page d'accueil après succès
+      navigate("/");
     } catch (error) {
+      // Si une erreur survient, afficher un message d'erreur spécifique
+      console.error(error);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
   };

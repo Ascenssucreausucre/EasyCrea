@@ -17,6 +17,7 @@ export function Deck({ deck, onDelete, deckId, onUpdateStatus }) {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch(
         `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}/status`,
@@ -32,16 +33,32 @@ export function Deck({ deck, onDelete, deckId, onUpdateStatus }) {
         }
       );
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || "Erreur inconnue");
+      // Essayer de récupérer la réponse JSON
+      const data = await response.text();
+      let parsedData;
+
+      try {
+        parsedData = data ? JSON.parse(data) : {};
+      } catch (e) {
+        throw new Error("La réponse de l'API est mal formatée.");
       }
 
+      // Vérifier si la requête a échoué
+      if (!response.ok) {
+        const errorMessage =
+          parsedData.error || `Une erreur inconnue s'est produite.`;
+        throw new Error(errorMessage);
+      }
+
+      // Afficher un message de succès
       showFeedback("success", "Status changé avec succès !");
-      onUpdateStatus
-        ? onUpdateStatus(deckData.id_deck, deckData.status, deck.status)
-        : null;
+
+      // Appeler onUpdateStatus si la fonction est définie
+      if (onUpdateStatus) {
+        onUpdateStatus(deckData.id_deck, deckData.status, deck.status);
+      }
     } catch (error) {
+      // Gérer les erreurs
       console.error("Erreur :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
@@ -49,6 +66,7 @@ export function Deck({ deck, onDelete, deckId, onUpdateStatus }) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch(
         `https://srochedix.alwaysdata.net/ReignApi/api/v1/decks/${deckData.id_deck}`,
@@ -61,21 +79,35 @@ export function Deck({ deck, onDelete, deckId, onUpdateStatus }) {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Erreur de requête. Statut HTTP: " + response.status);
-      }
-
+      // Essayer de récupérer la réponse brute
       const responseText = await response.text();
-      const data = responseText ? JSON.parse(responseText) : {};
+      let parsedData;
 
-      if (!data) {
-        throw new Error("La réponse de l'API est vide ou mal formatée.");
+      try {
+        parsedData = responseText ? JSON.parse(responseText) : {};
+      } catch (error) {
+        throw new Error("La réponse de l'API est mal formatée.");
       }
 
-      onDelete(deckId);
+      // Vérifier si la requête a échoué
+      if (!response.ok) {
+        const errorMessage =
+          parsedData.error || `Une erreur inconnue s'est produite.`;
+        throw new Error(errorMessage);
+      }
+
+      // Si la suppression réussit, appeler onDelete si défini
+      if (onDelete) {
+        onDelete(deckId);
+      }
+
+      // Afficher un message de succès
       showFeedback("success", "Deck supprimé avec succès !");
+
+      // Fermer le dialogue après la suppression
       handleCloseDialog();
     } catch (error) {
+      // Gérer les erreurs
       console.error("Erreur :", error.message);
       showFeedback("error", `Une erreur est survenue : ${error.message}`);
     }
