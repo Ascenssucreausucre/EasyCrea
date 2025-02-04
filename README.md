@@ -51,7 +51,8 @@ CSS3 pour le design
 2. **Déployer sur un hébergeur comme Vercel, Netlify ou Alwaysdata.**
 
 ## 🤝 Contributions
-L'application a été faite en collaboration avec 
+L'application a été faite en collaboration avec [Maximilien](https://github.com/mxou_) et [Sasha](https://github.com/Sasha4w)
+
 Les contributions sont les bienvenues !
 
 Forkez le projet
