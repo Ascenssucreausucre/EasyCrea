@@ -118,11 +118,7 @@ export function DecksPage() {
         {decks.length > 0 ? (
           <div className="home-deck-list">
             {decks.map((deck) => (
-              <Deck
-                key={deck.id_deck} // Ajout de la prop `key` unique
-                deck={deck}
-                onDelete={handleDeleteDeck}
-              />
+              <Deck key={deck.id_deck} deck={deck} />
             ))}
           </div>
         ) : (

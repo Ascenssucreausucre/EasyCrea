@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Deckouverte from "/src/assets/img/Deckouverte.jpg";
 
 export function Home() {
   // État pour savoir si le bouton d'installation doit être affiché
   const [showInstallButton, setShowInstallButton] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const navigate = useNavigate();
 
   // Écoute de l'événement 'beforeinstallprompt'
   useEffect(() => {
@@ -24,6 +26,10 @@ export function Home() {
       );
     };
   }, []);
+
+  function getStarted() {
+    navigate("/sign-up");
+  }
 
   // Fonction pour afficher le prompt d'installation
   const handleInstallClick = () => {
@@ -49,14 +55,26 @@ export function Home() {
           plus tard en créant des cartes, et ainsi participer à l'expérience de
           nombreux joueurs !
         </p>
-        {showInstallButton && (
+        <div
+          className="button-container"
+          style={{ justifyContent: "space-around" }}
+        >
           <button
-            onClick={handleInstallClick}
-            className="install-button button"
+            className="button variant"
+            style={{ margin: "5px 20%" }}
+            onClick={getStarted}
           >
-            Installer l'application
+            Découvrir !
           </button>
-        )}
+          {showInstallButton && (
+            <button
+              onClick={handleInstallClick}
+              className="install-button button"
+            >
+              Installer l'application
+            </button>
+          )}
+        </div>
         <div className="img-text">
           <img src={Deckouverte} alt="Deckouverte" />
           <div>

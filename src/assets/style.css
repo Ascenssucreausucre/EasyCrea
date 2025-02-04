@@ -63,7 +63,16 @@ html {
   transition: background-color 0.2s ease-out;
 }
 .button:hover {
-  background-color: #36206d;
+  background-color: var(--secondary-color);
+}
+.button.variant {
+  background-color: transparent;
+  border: solid var(--secondary-color) 3px;
+  color: var(--secondary-color);
+}
+.button.variant:hover {
+  color: white;
+  background-color: var(--secondary-color);
 }
 .add-button {
   margin-inline: auto;

@@ -45,7 +45,7 @@ const loader = async () => {
   if (token) {
     return decksLoader(); // Si le token existe, utilise le loader de decks
   } else {
-    return fetch("https://srochedix.alwaysdata.net/ReignApi/api/v1/decksnew"); // Sinon, fais une requête sans token
+    return fetch("https://srochedix.alwaysdata.net/ReignApi/api/v1/decks"); // Sinon, fais une requête sans token
   }
 };
 const router = createBrowserRouter([
