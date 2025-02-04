@@ -20,7 +20,7 @@ const decksLoader = async () => {
   }
 
   const response = await fetch(
-    "https://srochedix.alwaysdata.net/ReignApi/api/v1/decksnew",
+    "https://srochedix.alwaysdata.net/ReignApi/api/v1/decks",
     {
       method: "GET",
       headers: {
