@@ -16,7 +16,7 @@ Easycrea est une **Progressive Web App (PWA)** développée avec **React** pour 
 
 1. **Cloner le dépôt :**
    ```bash
-   git clone https://github.com/ton-nom-utilisateur/easycrea.git
+   git clone https://github.com/Ascenssucreausucre/EasyCrea
    cd easycrea
    
 2. **Installer les dépendances :**
@@ -51,7 +51,8 @@ CSS3 pour le design
 2. **Déployer sur un hébergeur comme Vercel, Netlify ou Alwaysdata.**
 
 ## 🤝 Contributions
-L'application a été faite en collaboration avec 
+L'application a été faite en collaboration avec [maxou](https://github.com/mxou) et [Sasha](https://github.com/Sasha4w)
+
 Les contributions sont les bienvenues !
 
 Forkez le projet
