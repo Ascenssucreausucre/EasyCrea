@@ -74,7 +74,7 @@ export function DecksPage() {
           ) : null}
         </section>
         <section className="deck-status-section">
-          <h2 className="title">Deck Jouable</h2>
+          <h2 className="title">Decks Jouable</h2>
           {decks.Playable.length > 0 ? (
             <div className="home-deck-list">
               {decks.Playable.map((deck) => (
@@ -91,7 +91,7 @@ export function DecksPage() {
           )}
         </section>
         <section className="deck-status-section">
-          <h2 className="title">Deck en cours d'approbation</h2>
+          <h2 className="title">Decks en cours d'approbation</h2>
           {decks.Pending.length > 0 ? (
             <div className="home-deck-list">
               {decks.Pending.map((deck) => (
