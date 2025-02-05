@@ -4,6 +4,8 @@
 
 Easycrea est une **Progressive Web App (PWA)** développée avec **React** pour enrichir le jeu **Deckouverte**, un jeu de cartes interactif. Cette application permet à la communauté d'ajouter et de gérer leurs propres cartes dans les decks créés par les administrateurs.
 
+Elle utilise une [API](https://github.com/sasha4w/ReignApi) et est designée pour l'application [Deckouverte](https://github.com/mxou/Deckouverte).
+
 ## 🚀 Fonctionnalités
 
 - Créer et ajouter des cartes aux decks existants
